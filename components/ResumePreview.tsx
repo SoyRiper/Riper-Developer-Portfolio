@@ -38,7 +38,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
   return (
     <div className="min-h-screen bg-[#131416] text-[#E5E5E0] font-sans flex flex-col items-center relative selection:bg-[#C5A880] selection:text-[#131416]">
       
-      {/* Interactive CV Modal Viewer */}
+      {/* Interactive CV Modal Viewer (Hidden during print) */}
       <CVModal isOpen={isCVModalOpen} onClose={() => setIsCVModalOpen(false)} data={data} />
 
       {/* Background Stream */}
@@ -104,7 +104,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             {/* ANIMATED TERMINAL INTRO WIDGET */}
             <TerminalIntro />
 
-            {/* ACTION BUTTONS GRID WITH DISCORD, WHATSAPP, LINKEDIN & GITHUB */}
+            {/* ACTION BUTTONS GRID */}
             <div className="flex flex-wrap gap-3 text-xs font-mono pt-2">
               <button
                 onClick={() => setIsCVModalOpen(true)}
@@ -291,38 +291,37 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
 
       </main>
 
-      {/* PRINT-ONLY SENIOR ATS CV VIEW */}
-      <div className="hidden print:block w-full max-w-4xl p-8 bg-white text-black font-sans leading-normal">
-        <div className="border-b-2 border-black pb-4 mb-5">
-          <h1 className="text-3xl font-extrabold uppercase tracking-tight">{data?.fullName}</h1>
-          <p className="text-base font-bold text-gray-900 mt-0.5">INGENIERO EN INFORMÁTICA Y SOFTWARE | SENIOR FULL-STACK (4+ AÑOS DE EXPERIENCIA)</p>
-          <div className="text-xs text-gray-700 flex flex-wrap gap-x-4 gap-y-1 mt-2 font-mono">
-            <span><strong>Email:</strong> {data?.contact?.email}</span>
-            <span><strong>WhatsApp:</strong> {data?.contact?.phone}</span>
-            <span><strong>GitHub:</strong> github.com/SoyRiper</span>
-            <span><strong>LinkedIn:</strong> morales-andrades</span>
+      {/* PRINT-ONLY ULTRA-CLEAN ATS CV SHEET (STRICT BLACK ON WHITE PAPER) */}
+      <div className="hidden print:block print-only-sheet p-0 bg-white text-black font-sans leading-normal">
+        <div className="border-b-2 border-black pb-3 mb-4">
+          <h1 className="text-2xl font-extrabold uppercase tracking-tight text-black">{data?.fullName}</h1>
+          <p className="text-xs font-bold text-black mt-0.5">INGENIERO EN INFORMÁTICA Y SOFTWARE | SENIOR FULL-STACK (4+ AÑOS DE EXPERIENCIA)</p>
+          <div className="text-[10px] text-black flex flex-wrap gap-x-3 gap-y-1 mt-2 font-mono">
+            <span><strong>Email:</strong> {data?.contact?.email}</span> |
+            <span><strong>WhatsApp:</strong> {data?.contact?.phone}</span> |
+            <span><strong>GitHub:</strong> github.com/SoyRiper</span> |
+            <span><strong>LinkedIn:</strong> morales-andrades</span> |
             <span><strong>Discord:</strong> @soyriper</span>
-            <span><strong>Roblox Dev:</strong> @Riperdeveloper</span>
           </div>
         </div>
 
-        <div className="mb-5">
-          <h2 className="text-xs font-bold uppercase tracking-wider border-b border-black pb-1 mb-2">Perfil Profesional Senior</h2>
-          <p className="text-xs text-gray-800 leading-relaxed">
+        <div className="mb-4">
+          <h2 className="text-[11px] font-bold uppercase tracking-wider border-b border-black pb-0.5 mb-1.5 text-black">Perfil Profesional Senior</h2>
+          <p className="text-[10.5px] text-black leading-snug">
             Ingeniero en Informática y Software con más de 4 años de experiencia demostrable en desarrollo de software Full-Stack, arquitectura backend de alta velocidad (FastAPI, NestJS, Python 3, PostgreSQL), desarrollo móvil y desktop (Flutter, Electron.js, Android Studio), bots de automatización multi-dispositivo (Selenium, Android ADB Tools), desarrollo de videojuegos en Roblox Studio (Luau, Rojo SDK) y plataformas de trading algorítmico (MetaTrader 5 SDK).
           </p>
         </div>
 
-        <div className="mb-5">
-          <h2 className="text-xs font-bold uppercase tracking-wider border-b border-black pb-1 mb-2.5">Experiencia Profesional (4+ Años)</h2>
-          <div className="space-y-3.5">
+        <div className="mb-4">
+          <h2 className="text-[11px] font-bold uppercase tracking-wider border-b border-black pb-0.5 mb-2 text-black">Experiencia Profesional (4+ Años)</h2>
+          <div className="space-y-2.5">
             {(data?.experience || []).map((exp) => (
               <div key={exp.id}>
-                <div className="flex justify-between text-xs font-bold text-black">
+                <div className="flex justify-between text-[11px] font-bold text-black">
                   <span>{exp.role} — {exp.company}</span>
                   <span className="font-mono">{exp.period}</span>
                 </div>
-                <ul className="list-disc list-inside text-[11px] text-gray-800 mt-1 space-y-1">
+                <ul className="list-disc list-inside text-[10px] text-black mt-0.5 space-y-0.5">
                   {exp.description.map((d, idx) => (
                     <li key={idx}>{d}</li>
                   ))}
@@ -332,26 +331,25 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
           </div>
         </div>
 
-        <div className="mb-5">
-          <h2 className="text-xs font-bold uppercase tracking-wider border-b border-black pb-1 mb-2.5">Proyectos Principales en GitHub</h2>
-          <div className="grid grid-cols-2 gap-3 text-xs">
+        <div className="mb-4">
+          <h2 className="text-[11px] font-bold uppercase tracking-wider border-b border-black pb-0.5 mb-2 text-black">Repositorios Principales en GitHub</h2>
+          <div className="grid grid-cols-2 gap-2 text-[10px]">
             {(data?.projects || []).map((p) => (
-              <div key={p.id} className="border border-gray-300 p-2 rounded">
-                <div className="font-bold text-black text-[11px]">{p.title}</div>
-                <div className="text-[10px] text-gray-700 mt-0.5">{p.description}</div>
-                <div className="text-[9px] text-gray-600 font-mono mt-1"><strong>Stack:</strong> {p.tags.join(', ')}</div>
+              <div key={p.id} className="border border-black p-1.5">
+                <div className="font-bold text-black">{p.title}</div>
+                <div className="text-[9.5px] text-black leading-tight mt-0.5">{p.description}</div>
+                <div className="text-[8.5px] text-black font-mono mt-1"><strong>Stack:</strong> {p.tags.join(', ')}</div>
               </div>
             ))}
           </div>
         </div>
 
         <div>
-          <h2 className="text-xs font-bold uppercase tracking-wider border-b border-black pb-1 mb-2">Arsenal Tecnológico & Especialidades</h2>
-          <div className="text-xs space-y-1 font-mono">
+          <h2 className="text-[11px] font-bold uppercase tracking-wider border-b border-black pb-0.5 mb-1.5 text-black">Arsenal Tecnológico & Especialidades</h2>
+          <div className="text-[10px] space-y-1 font-mono text-black">
             {(data?.skillGroups || []).map((g, idx) => (
               <div key={idx}>
-                <span className="font-bold text-black">{g.category}: </span>
-                <span className="text-gray-800">{g.skills.join(', ')}</span>
+                <strong>{g.category}:</strong> {g.skills.join(', ')}
               </div>
             ))}
           </div>

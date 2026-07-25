@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Download, Award, Mail, Phone, Github, Linkedin, MessageSquare, ExternalLink, ShieldCheck } from 'lucide-react';
+import { X, Download, Mail, Phone, Github, Linkedin, MessageSquare, ExternalLink, ShieldCheck } from 'lucide-react';
 import { ResumeData } from '../types';
 
 interface CVModalProps {
@@ -18,16 +18,16 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose, data }) => {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/85 backdrop-blur-md overflow-y-auto">
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/85 backdrop-blur-md overflow-y-auto print:hidden">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25 }}
-          className="bg-[#1E2024] border border-[#2A2C31] rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden shadow-none"
+          className="bg-[#1E2024] border border-[#2A2C31] rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden shadow-none print:hidden"
         >
           {/* Modal Header Bar */}
-          <div className="bg-[#131416] px-6 py-4 border-b border-[#2A2C31] flex flex-wrap items-center justify-between gap-4 sticky top-0 z-20">
+          <div className="bg-[#131416] px-6 py-4 border-b border-[#2A2C31] flex flex-wrap items-center justify-between gap-4 sticky top-0 z-20 print:hidden">
             <div className="flex items-center gap-2.5">
               <ShieldCheck size={18} className="text-[#C5A880]" />
               <span className="font-mono text-xs font-bold text-[#E5E5E0] uppercase tracking-wider">
@@ -52,7 +52,7 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose, data }) => {
             </div>
           </div>
 
-          {/* Modal Content */}
+          {/* Modal Screen Preview Content */}
           <div className="p-6 md:p-10 overflow-y-auto font-sans space-y-8 bg-[#131416] text-[#E5E5E0]">
             
             {/* Header / Intro */}
