@@ -19,6 +19,7 @@ export interface Project {
   githubUrl: string;
   demoUrl?: string;
   badge?: string;
+  codeSnippet?: string;
 }
 
 export interface ContactInfo {
@@ -28,11 +29,19 @@ export interface ContactInfo {
   location: string;
 }
 
+export interface ProfilePhotos {
+  real: string;
+  avatar: string;
+}
+
 export interface ResumeData {
   fullName: string;
+  handle: string;
   title: string;
-  summary: string;
+  bio: string;
+  location: string;
   contact: ContactInfo;
+  photos: ProfilePhotos;
   skillGroups: SkillGroup[];
   projects: Project[];
   experience: Experience[];

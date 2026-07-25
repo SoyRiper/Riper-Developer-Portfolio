@@ -1,28 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Riper Dev - Software Architect</title>
+    <title>Cesar Morales (SoyRiper) — Full Stack & Systems Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
-              mono: ['JetBrains Mono', 'monospace'],
+              mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
             },
             colors: {
-              // Professional Dark Theme Palette
-              page: '#09090b', // Zinc 950
-              card: '#18181b', // Zinc 900
-              border: '#27272a', // Zinc 800
-              subtle: '#a1a1aa', // Zinc 400
-              primary: '#fafafa', // Zinc 50
-              accent: '#6366f1', // Indigo 500
+              page: '#07090e',
+              card: '#0d111a',
+              cardHover: '#131926',
+              border: '#1f293d',
+              subtle: '#94a3b8',
+              primary: '#f8fafc',
+              neonCyan: '#06b6d4',
+              neonEmerald: '#10b981',
+              neonPurple: '#a855f7',
+            },
+            animation: {
+              'pulse-glow': 'pulseGlow 3s infinite alternate',
+              'scanline': 'scanline 8s linear infinite',
+              'float': 'float 4s ease-in-out infinite',
+            },
+            keyframes: {
+              pulseGlow: {
+                '0%': { boxShadow: '0 0 15px rgba(6, 182, 212, 0.2)' },
+                '100%': { boxShadow: '0 0 35px rgba(16, 185, 129, 0.4)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-8px)' },
+              }
             }
           }
         }
@@ -30,44 +48,55 @@
     </script>
     <style>
       body {
-        background-color: #09090b;
-        color: #fafafa;
+        background-color: #07090e;
+        color: #f8fafc;
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
       }
-      /* Hide scrollbar for cleaner look in some browsers */
+      
+      ::selection {
+        background: #06b6d4;
+        color: #000000;
+      }
+
+      /* Custom Cyber Grid Background */
+      .bg-cyber-grid {
+        background-image: 
+          radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.12) 0%, transparent 60%),
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 100% 100%, 40px 40px, 40px 40px;
+      }
+
+      /* Glassmorphism */
+      .glass-card {
+        background: rgba(13, 17, 26, 0.75);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .glass-card:hover {
+        border-color: rgba(6, 182, 212, 0.4);
+      }
+
+      /* Scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #09090b; 
+        background: #07090e;
       }
       ::-webkit-scrollbar-thumb {
-        background: #27272a; 
+        background: #1e293b;
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #3f3f46; 
-      }
-      
-      /* Devicon overrides for better contrast if needed */
-      i[class^="devicon-"] {
-        font-size: 1.5rem;
+        background: #06b6d4;
       }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
-  <body>
+  </head>
+  <body class="bg-cyber-grid">
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="/App.tsx"></script>
+  </body>
 </html>

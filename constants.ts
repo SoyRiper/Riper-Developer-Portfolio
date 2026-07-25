@@ -1,103 +1,201 @@
 import { ResumeData } from './types';
 
 export const INITIAL_RESUME: ResumeData = {
-  fullName: "RIPER (SoyRiper)",
-  title: "FULL-STACK & SYSTEMS SOFTWARE ENGINEER",
-  summary: "Desarrollador Full-Stack y de Sistemas con experiencia en la construcción de plataformas de alta velocidad, backend escalables (NestJS/Node/Python), motores de trading algorítmico (MetaTrader 5/OANDA) e integración de modelos de Inteligencia Artificial (Google Gemini API). Enfocado en arquitectura limpia, rendimiento y código listo para producción.",
+  fullName: "Cesar Enrique Morales Andrades",
+  handle: "SoyRiper / Riper",
+  title: "Full-Stack & Systems Developer | Co-Founder at Denail",
+  bio: "Ingeniero de Software apasionado por construir sistemas distribuidos de alto rendimiento, backends empresariales (NestJS/TypeScript/Python), plataformas de trading algorítmico (MetaTrader 5/OANDA API) e integraciones con Inteligencia Artificial (Google Gemini API).",
+  location: "Los Teques, Estado Miranda | Remote Global",
   contact: {
     email: "andradescesar2024@gmail.com",
-    linkedin: "linkedin.com/in/soyriper",
-    github: "github.com/SoyRiper",
+    linkedin: "https://www.linkedin.com/in/cesar-enrique-morales-andrades-0803ba33b/",
+    github: "https://github.com/SoyRiper",
     location: "Remote / Global"
+  },
+  photos: {
+    real: "/assets/cesar_real.jpg",
+    avatar: "/assets/riper_avatar.png"
   },
   skillGroups: [
     {
-      category: "Backend & Enterprise APIs",
-      skills: ["NestJS", "Node.js", "Python", "TypeScript", "SQL"]
+      category: "Backend & Enterprise Architecture",
+      skills: ["NestJS", "TypeScript", "Node.js", "Python", "SQL / PostgreSQL", "Supabase"]
     },
     {
-      category: "Frontend & UI/UX",
-      skills: ["React", "Vite", "Framer Motion", "TailwindCSS", "HTML5"]
+      category: "Frontend & UI/UX Experience",
+      skills: ["React 19", "Vite", "Framer Motion", "TailwindCSS", "HTML5/CSS3", "JavaScript ES6+"]
     },
     {
-      category: "FinTech & Low-Latency Systems",
-      skills: ["C++", "MetaTrader 5", "OANDA API", "WebSockets", "Linux"]
+      category: "FinTech & Systems Programming",
+      skills: ["C++17", "MetaTrader 5 SDK", "OANDA v20 API", "WebSockets", "Linux", "CMake"]
     },
     {
-      category: "AI Integration & Data",
-      skills: ["Gemini AI", "Supabase", "PostgreSQL", "Docker", "Git"]
+      category: "AI Integration & Mobile Dev",
+      skills: ["Google Gemini API", "Gemma LLMs", "Android Native", "Docker", "Git / GitHub CLI"]
     }
   ],
   projects: [
     {
       id: "p1",
-      title: "VelocityTrader — Algorithmic Trading Platform",
-      description: "Plataforma de trading algorítmico y análisis de divisas/criptomonedas en tiempo real con ejecución directa vía MetaTrader 5 API y OANDA.",
-      tags: ["Python", "MetaTrader 5", "OANDA API", "Electron", "WebSockets"],
+      title: "VelocityTrader — Algorithmic Crypto & Forex Platform",
+      description: "Plataforma de trading algorítmico y análisis financiero cuantitativo en tiempo real conectada a MetaTrader 5 y OANDA v20 REST API.",
+      tags: ["Python 3", "MetaTrader 5", "OANDA API", "Electron.js", "WebSockets"],
       githubUrl: "https://github.com/SoyRiper/VelocityTrader-Algorithmic-Platform",
-      badge: "FinTech & Trading"
+      badge: "FinTech & Trading",
+      codeSnippet: `# MetaTrader 5 Execution Kernel - VelocityTrader
+import MetaTrader5 as mt5
+import time
+
+def execute_algorithmic_trade(symbol, order_type, volume, sl_points, tp_points):
+    if not mt5.initialize():
+        raise Exception("MT5 Initialization failed")
+    
+    tick = mt5.symbol_info_tick(symbol)
+    price = tick.ask if order_type == 'BUY' else tick.bid
+    point = mt5.symbol_info(symbol).point
+    
+    request = {
+        "action": mt5.TRADE_ACTION_DEAL,
+        "symbol": symbol,
+        "volume": volume,
+        "type": mt5.ORDER_TYPE_BUY if order_type == 'BUY' else mt5.ORDER_TYPE_SELL,
+        "price": price,
+        "sl": price - (sl_points * point) if order_type == 'BUY' else price + (sl_points * point),
+        "tp": price + (tp_points * point) if order_type == 'BUY' else price - (tp_points * point),
+        "deviation": 10,
+        "magic": 202607,
+        "comment": "VelocityTrader AI AutoExecution",
+        "type_time": mt5.ORDER_TIME_GTC,
+    }
+    result = mt5.order_send(request)
+    return result.retcode == mt5.TRADE_RETCODE_DONE`
     },
     {
       id: "p2",
       title: "Denail — Enterprise NestJS Backend API",
-      description: "API empresarial con arquitectura modular limpia (Clean Architecture) para análisis de hábitos y productividad en el ecosistema Denail AI.",
-      tags: ["NestJS", "TypeScript", "Supabase", "PostgreSQL", "REST API"],
+      description: "Arquitectura backend empresarial diseñada bajo principios SOLID y Clean Architecture para la plataforma inteligente Denail.",
+      tags: ["NestJS", "TypeScript", "Supabase", "PostgreSQL", "JWT Auth"],
       githubUrl: "https://github.com/SoyRiper/Denail-Backend-NestJS",
-      badge: "Backend Enterprise"
+      badge: "Backend Enterprise",
+      codeSnippet: `// NestJS Coffee Insights Controller
+@Controller('insights')
+@UseGuards(JwtAuthGuard)
+export class InsightsController {
+  constructor(private readonly insightsService: InsightsService) {}
+
+  @Get('user-productivity')
+  async getProductivityMetrics(@Req() req: RequestWithUser) {
+    const userId = req.user.id;
+    return await this.insightsService.calculateCaffeineEffect(userId);
+  }
+}`
     },
     {
       id: "p3",
       title: "AI-MIDI Music Studio",
-      description: "Estudio Full-Stack de composición musical e Inteligencia Artificial para la síntesis, manipulación de acordes y generación de archivos MIDI en tiempo real.",
-      tags: ["Python", "Flask", "React", "Vite", "Web Audio API"],
+      description: "Estudio de producción musical e Inteligencia Artificial Full-Stack para composición, síntesis y generación en tiempo real de secuencias MIDI.",
+      tags: ["Python Flask", "React 18", "Web Audio API", "Mido", "Music21"],
       githubUrl: "https://github.com/SoyRiper/AI-MIDI-Music-Studio",
-      badge: "Audio & AI"
+      badge: "Audio & AI Engine",
+      codeSnippet: `# MIDI Generation Engine
+from mido import Message, MidiFile, MidiTrack
+
+def generate_lofi_progression(chords, bpm=80):
+    mid = MidiFile()
+    track = MidiTrack()
+    mid.tracks.append(track)
+    
+    ticks_per_beat = mid.ticks_per_beat
+    for chord in chords:
+        for note in chord:
+            track.append(Message('note_on', note=note, velocity=64, time=0))
+        track.append(Message('note_off', note=chord[0], velocity=64, time=ticks_per_beat * 2))
+    
+    mid.save('lofi_output.mid')
+    return True`
     },
     {
       id: "p4",
-      title: "Denail AI Coffee Machine App",
-      description: "Aplicación web interactiva para cafetera inteligente potenciada por la API de Google Gemini y gestión serverless con Supabase.",
-      tags: ["React 19", "TypeScript", "Gemini AI", "Framer Motion", "Vite"],
+      title: "Denail AI Coffee Machine Web App",
+      description: "Plataforma web reactiva impulsada por Google Gemini API para recomendación inteligente de cafés según nivel de energía y tareas diarias.",
+      tags: ["React 19", "TypeScript", "Google Gemini API", "Framer Motion", "Supabase"],
       githubUrl: "https://github.com/SoyRiper/Cafe-pagina-Denail",
-      badge: "AI & Full-Stack"
+      badge: "AI & Full-Stack",
+      codeSnippet: `// Gemini AI Smart Recommendation Hook
+export const useGeminiCoffeeAI = () => {
+  const getAIRecommendation = async (mood: string, task: string) => {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: \`Suggest the best coffee for mood: \${mood} and task: \${task}\`,
+    });
+    return response.text;
+  };
+  return { getAIRecommendation };
+};`
     },
     {
       id: "p5",
-      title: "RCorps — Community & Clan Management",
-      description: "Plataforma web comunitaria para administración de perfiles, clanes, badges e historial de miembros con persistencia de base de datos SQL.",
-      tags: ["HTML5", "JavaScript ES6+", "SQL Database", "Responsive CSS"],
+      title: "RCorps — Community & Clan Platform",
+      description: "Sistema web interactivo para gestión de comunidades, clanes, perfiles de usuario y catálogo de medallas con persistencia en SQL.",
+      tags: ["HTML5", "JavaScript ES6+", "SQL Migration", "Responsive Layout"],
       githubUrl: "https://github.com/SoyRiper/RCorps",
-      badge: "Web Platform"
+      badge: "Web Platform",
+      codeSnippet: `-- SQL Migration Script for Clans & User Roles
+CREATE TABLE IF NOT EXISTS clans (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    tag VARCHAR(10) NOT NULL,
+    leader_id INT REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);`
     },
     {
       id: "p6",
       title: "Geometry Dash Level Recommender Mod",
-      description: "Mod nativo en C++17 desarrollado sobre el framework Geode para filtrado y recomendación dinámica de niveles de la comunidad.",
-      tags: ["C++17", "CMake", "Geode SDK", "Native Development"],
+      description: "Mod desarrollado en C++17 para Geometry Dash utilizando el SDK de Geode para recomendación dinámica de niveles de la comunidad.",
+      tags: ["C++17", "CMake", "Geode SDK", "Native Game Modding"],
       githubUrl: "https://github.com/SoyRiper/gd-level-recommender",
-      badge: "C++ & Game Dev"
+      badge: "C++ & Game Dev",
+      codeSnippet: `// Geode Mod Entrypoint in C++
+#include <Geode/Geode.hpp>
+#include <Geode/modify/MenuLayer.hpp>
+
+using namespace geode::prelude;
+
+class $modify(MyMenuLayer, MenuLayer) {
+    bool init() {
+        if (!MenuLayer::init()) return false;
+        
+        auto btn = CCMenuItemSpriteExtra::create(
+            CCSprite::create("recommender_icon.png"),
+            this,
+            menu_selector(MyMenuLayer::onRecommendLevels)
+        );
+        return true;
+    }
+};`
     }
   ],
   experience: [
     {
-      id: '1',
-      role: "Full-Stack & Systems Engineer",
-      company: "Proyectos Independientes / Freelance",
-      period: "2023 - Presente",
+      id: "1",
+      role: "Co-Founder & Lead Developer",
+      company: "Denail (AI & Coffee Tech Platform)",
+      period: "2024 - Presente",
       description: [
-        "Diseño e implementación de arquitectura backend modular en NestJS/TypeScript con integración a Supabase PostgreSQL.",
-        "Desarrollo de bots de trading de alta velocidad en Python comunicados mediante WebSockets con terminales de MetaTrader 5 y OANDA v20 API.",
-        "Integración de agentes e APIs de Inteligencia Artificial (Google Gemini AI API) en aplicaciones web interactivas construidas con React 19 y Vite."
+        "Lideré la arquitectura de software de Denail, integrando NestJS, Supabase y Google Gemini AI API para analítica de consumo e inteligencia artificial.",
+        "Desarrollé la interfaz web responsiva en React 19 y TypeScript con animaciones fluidas para experiencia de usuario de alto impacto."
       ]
     },
     {
-      id: '2',
-      role: "Software & Web Developer",
-      company: "Desarrollo de Software & Client Solutions",
-      period: "2021 - 2023",
+      id: "2",
+      role: "Full-Stack & Systems Developer",
+      company: "Proyectos Independientes & FinTech",
+      period: "2022 - 2024",
       description: [
-        "Creación de plataformas de gestión comunitaria utilizando HTML5, JavaScript ES6+ y consultas de base de datos SQL personalizadas.",
-        "Construcción de aplicaciones nativas y mods en C++ utilizando CMake y SDKs especializados."
+        "Creé VelocityTrader: motor de trading algorítmico en Python conectado a MetaTrader 5 y OANDA v20 API para trading de divisas y cripto.",
+        "Diseñé e implementé el backend de AI-MIDI Music Studio para síntesis de audio en tiempo real y composición de partituras.",
+        "Desarrollé mods nativos en C++17 utilizando CMake y SDKs especializados."
       ]
     }
   ]
