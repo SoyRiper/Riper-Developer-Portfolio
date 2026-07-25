@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Cpu, Server, Zap, Activity, Globe } from 'lucide-react';
+import { Cpu, Server, Zap, Activity, Globe, Gamepad2, Smartphone } from 'lucide-react';
 
 export const ArchitectureMetrics: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'reebca' | 'backend' | 'fintech' | 'ai'>('reebca');
+  const [activeTab, setActiveTab] = useState<'reebca' | 'roblox' | 'mobile' | 'backend' | 'fintech'>('reebca');
 
   const architectures = {
     reebca: {
@@ -14,6 +14,24 @@ export const ArchitectureMetrics: React.FC = () => {
         { label: "Gestión de Datos", value: "PostgreSQL", desc: "Módulos de agendamiento, clientes e inventario de insumos" }
       ],
       flow: ["React 18 Frontend", "FastAPI / Uvicorn Server", "PostgreSQL Engine", "Linux VPS / Nginx Reverse Proxy"]
+    },
+    roblox: {
+      title: "Desarrollo de Videojuegos en Roblox Studio (@Riperdeveloper)",
+      metrics: [
+        { label: "Lenguaje de Scripting", value: "Luau / OOP", desc: "Programación orientada a objetos en Roblox Engine" },
+        { label: "Entorno de Compilación", value: "Rojo SDK", desc: "Sincronización directa desde VS Code hacia Roblox Place" },
+        { label: "Persistencia de Datos", value: "DataStores", desc: "Almacenamiento seguro de progreso, inventarios y estadísticas" }
+      ],
+      flow: ["VS Code / Rojo CLI", "Server Script (Luau)", "RemoteEvents Sync", "Roblox Engine Client"]
+    },
+    mobile: {
+      title: "Bots de Automatización Multi-Dispositivo & Mobile ADB",
+      metrics: [
+        { label: "Control de Dispositivos", value: "Android ADB", desc: "Comandos remotos por USB/WiFi mediante ADB Tools" },
+        { label: "Web Scraping & Calls", value: "Selenium + Py", desc: "Navegación automatizada y control de flujo en vivo" },
+        { label: "Interfaz Desktop", value: "Electron.js", desc: "Dashboard multiplataforma en tiempo real" }
+      ],
+      flow: ["Electron GUI", "Python ADB Kernel", "Android Device Bridge", "Live Telecom Stream"]
     },
     backend: {
       title: "Arquitectura Backend Empresarial (NestJS & Supabase)",
@@ -32,15 +50,6 @@ export const ArchitectureMetrics: React.FC = () => {
         { label: "Gestión de Riesgo", value: "Automatizada", desc: "Cálculo en vivo de Stop Loss & Take Profit" }
       ],
       flow: ["Terminal MT5 / OANDA", "Socket Receiver Python 3", "Risk Management Engine", "Electron Dashboard"]
-    },
-    ai: {
-      title: "Integración de IA & Procesamiento de Audio (Gemini & MIDI Engine)",
-      metrics: [
-        { label: "Generación de Prompts", value: "110ms", desc: "Invocación a la API de Google Gemini 2.5 Flash" },
-        { label: "Síntesis de Audio", value: "Real-Time", desc: "Generación y renderizado de archivos MIDI en tiempo real" },
-        { label: "Procesamiento Web", value: "Web Audio API", desc: "Buffer multicanal e interfaz reactiva" }
-      ],
-      flow: ["Prompt de Usuario", "Gemini AI Model / Flask Backend", "MIDI Synthesizer Engine", "Web Audio Player"]
     }
   };
 
@@ -61,6 +70,26 @@ export const ArchitectureMetrics: React.FC = () => {
           <Globe size={14} /> REEBCA (FastAPI + VPS)
         </button>
         <button
+          onClick={() => setActiveTab('roblox')}
+          className={`px-4 py-2 rounded-xl text-xs font-mono transition-all flex items-center gap-2 ${
+            activeTab === 'roblox'
+              ? 'bg-[#C5A880] text-[#131416] font-bold shadow-md'
+              : 'bg-[#131416] text-[#8A8E95] border border-[#2A2C31] hover:text-[#E5E5E0]'
+          }`}
+        >
+          <Gamepad2 size={14} /> Roblox Game Dev (Luau)
+        </button>
+        <button
+          onClick={() => setActiveTab('mobile')}
+          className={`px-4 py-2 rounded-xl text-xs font-mono transition-all flex items-center gap-2 ${
+            activeTab === 'mobile'
+              ? 'bg-[#C5A880] text-[#131416] font-bold shadow-md'
+              : 'bg-[#131416] text-[#8A8E95] border border-[#2A2C31] hover:text-[#E5E5E0]'
+          }`}
+        >
+          <Smartphone size={14} /> Mobile ADB & Bots
+        </button>
+        <button
           onClick={() => setActiveTab('backend')}
           className={`px-4 py-2 rounded-xl text-xs font-mono transition-all flex items-center gap-2 ${
             activeTab === 'backend'
@@ -79,16 +108,6 @@ export const ArchitectureMetrics: React.FC = () => {
           }`}
         >
           <Zap size={14} /> FinTech & Trading
-        </button>
-        <button
-          onClick={() => setActiveTab('ai')}
-          className={`px-4 py-2 rounded-xl text-xs font-mono transition-all flex items-center gap-2 ${
-            activeTab === 'ai'
-              ? 'bg-[#C5A880] text-[#131416] font-bold shadow-md'
-              : 'bg-[#131416] text-[#8A8E95] border border-[#2A2C31] hover:text-[#E5E5E0]'
-          }`}
-        >
-          <Cpu size={14} /> AI & Audio Engine
         </button>
       </div>
 

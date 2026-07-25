@@ -3,13 +3,15 @@ import { ResumeData } from './types';
 export const INITIAL_RESUME: ResumeData = {
   fullName: "Cesar Enrique Morales Andrades",
   handle: "SoyRiper / Riper",
-  title: "Senior Full-Stack & Systems Engineer | Co-Founder at Denail",
-  bio: "Ingeniero de Software especializado en la construcción de arquitecturas backend escalables (NestJS, FastAPI, Python, TypeScript, SQL), interfaces web reactivas de alta fidelidad (React 19, Vite, Framer Motion), motores de trading algorítmico (MetaTrader 5, OANDA) y proyectos socio-integradores de gestión empresarial (REEBCA). Enfocado en código limpio, automatización de despliegues VPS y soluciones orientadas al usuario final.",
+  robloxHandle: "@Riperdeveloper",
+  title: "Senior Full-Stack, Mobile & Systems Engineer | Roblox Game Dev | Co-Founder at Denail",
+  bio: "Ingeniero de Software especializado en arquitectura backend (NestJS, FastAPI, Python, SQL), desarrollo web reactivo (React 19, Vite, TailwindCSS), desarrollo de videojuegos en Roblox Studio (Luau, Rojo), bots de automatización multi-dispositivo (Python 3, Selenium, Android ADB Tools) y aplicaciones móviles / desktop (Flutter, Electron.js, Android Studio).",
   location: "Los Teques, Estado Miranda | Remote Global",
   contact: {
     email: "andradescesar2024@gmail.com",
     linkedin: "https://www.linkedin.com/in/cesar-enrique-morales-andrades-0803ba33b/",
     github: "https://github.com/SoyRiper",
+    roblox: "https://www.roblox.com/search/users?keyword=Riperdeveloper",
     location: "Remote / Global"
   },
   photos: {
@@ -26,12 +28,12 @@ export const INITIAL_RESUME: ResumeData = {
       skills: ["React 19", "Vite", "Framer Motion", "TailwindCSS", "HTML5 Semántico", "JavaScript ES6+"]
     },
     {
-      category: "FinTech & Systems Programming",
-      skills: ["C++17", "MetaTrader 5 SDK", "OANDA v20 API", "WebSockets", "Linux VPS", "CMake"]
+      category: "Roblox Game Dev & Mobile",
+      skills: ["Roblox Studio (Luau)", "Rojo Workflow", "Flutter", "Android Studio (ADB)", "Electron.js"]
     },
     {
-      category: "AI Integration & DevOps",
-      skills: ["Google Gemini API", "Gemma LLMs", "Nginx", "Systemd", "Docker", "Git / GitHub CLI"]
+      category: "Python Automation & DevOps",
+      skills: ["Selenium ADB Bots", "MetaTrader 5 SDK", "OANDA API", "Nginx VPS", "Docker", "Git CLI"]
     }
   ],
   projects: [
@@ -42,6 +44,22 @@ export const INITIAL_RESUME: ResumeData = {
       tags: ["FastAPI", "Python 3.10+", "React 18", "PostgreSQL", "Nginx VPS", "Systemd"],
       githubUrl: "https://github.com/SoyRiper/REEBCA-Management-Platform",
       badge: "Enterprise Platform"
+    },
+    {
+      id: "p1_denail",
+      title: "Denail — Official Tech Platform Landing & Web App",
+      description: "Plataforma web oficial de captura de correos, gestión de usuarios e interfaz inteligente para la startup Denail.",
+      tags: ["React 19", "TypeScript", "TailwindCSS", "Supabase", "Vite"],
+      githubUrl: "https://github.com/SoyRiper/Denail-Landing-Web",
+      badge: "Full-Stack Web App"
+    },
+    {
+      id: "p2_bot",
+      title: "Telecom & Multi-Device Android ADB Automator Bot",
+      description: "Bot de automatización multi-dispositivo y control telefónico en vivo utilizando Selenium, Python 3, Android ADB Platform Tools y Electron.",
+      tags: ["Python 3", "Electron.js", "Selenium", "Android ADB", "WebSockets"],
+      githubUrl: "https://github.com/SoyRiper/Telecom-Android-Automator-Bot",
+      badge: "Python & ADB Automation"
     },
     {
       id: "p1",
@@ -68,22 +86,6 @@ export const INITIAL_RESUME: ResumeData = {
       badge: "Audio & AI Engine"
     },
     {
-      id: "p4",
-      title: "Denail AI Coffee Machine Web App",
-      description: "Plataforma web reactiva impulsada por Google Gemini API para recomendación inteligente de cafés según nivel de energía y tareas diarias.",
-      tags: ["React 19", "TypeScript", "Google Gemini API", "Framer Motion", "Supabase"],
-      githubUrl: "https://github.com/SoyRiper/Cafe-pagina-Denail",
-      badge: "AI & Full-Stack"
-    },
-    {
-      id: "p5",
-      title: "RCorps — Community & Clan Platform",
-      description: "Sistema web interactivo para gestión de comunidades, clanes, perfiles de usuario y catálogo de medallas con persistencia en SQL.",
-      tags: ["HTML5", "JavaScript ES6+", "SQL Migration", "Responsive Layout"],
-      githubUrl: "https://github.com/SoyRiper/RCorps",
-      badge: "Web Platform"
-    },
-    {
       id: "p6",
       title: "Geometry Dash Level Recommender Mod",
       description: "Mod desarrollado en C++17 para Geometry Dash utilizando el SDK de Geode para recomendación dinámica de niveles de la comunidad.",
@@ -93,6 +95,16 @@ export const INITIAL_RESUME: ResumeData = {
     }
   ],
   experience: [
+    {
+      id: "roblox",
+      role: "Roblox Game Developer & Scripter",
+      company: "Comunidad Roblox Studio (@Riperdeveloper)",
+      period: "2023 - Presente",
+      description: [
+        "Desarrollé experiencias y mecánicas de juego en Roblox Studio utilizando Luau, POO y la suite de compilación Rojo.",
+        "Implementé físicas de vehículos, sistemas de inventario, animaciones nativas e integración de datos guardados (DataStores)."
+      ]
+    },
     {
       id: "0",
       role: "Lead Full-Stack Developer",
@@ -112,17 +124,6 @@ export const INITIAL_RESUME: ResumeData = {
       description: [
         "Lideré la arquitectura de software de Denail, integrando NestJS, Supabase y Google Gemini AI API para analítica de consumo e inteligencia artificial.",
         "Desarrollé la interfaz web responsiva en React 19 y TypeScript con animaciones fluidas para experiencia de usuario de alto impacto."
-      ]
-    },
-    {
-      id: "2",
-      role: "Full-Stack & Systems Developer",
-      company: "Proyectos Independientes & FinTech",
-      period: "2022 - 2024",
-      description: [
-        "Creé VelocityTrader: motor de trading algorítmico en Python conectado a MetaTrader 5 y OANDA v20 API para trading de divisas y cripto.",
-        "Diseñé e implementé el backend de AI-MIDI Music Studio para síntesis de audio en tiempo real y composición de partituras.",
-        "Desarrollé mods nativos en C++17 utilizando CMake y SDKs especializados."
       ]
     }
   ]
