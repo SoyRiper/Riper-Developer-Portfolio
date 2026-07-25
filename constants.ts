@@ -5,8 +5,8 @@ export const INITIAL_RESUME: ResumeData = {
   handle: "SoyRiper / Riper",
   discordTag: "@soyriper",
   robloxHandle: "@Riperdeveloper",
-  title: "Senior Full-Stack, Mobile & Systems Engineer | Roblox Game Dev | Co-Founder at Denail",
-  bio: "Ingeniero de Software especializado en arquitectura backend (NestJS, FastAPI, Python, SQL), desarrollo web reactivo (React 19, Vite, TailwindCSS), desarrollo de videojuegos en Roblox Studio (Luau, Rojo), bots de automatización multi-dispositivo (Python 3, Selenium, Android ADB Tools) y aplicaciones móviles / desktop (Flutter, Electron.js, Android Studio).",
+  title: "Ingeniero en Informática y Software | Senior Full-Stack & Systems Engineer (4+ Años Exp.)",
+  bio: "Ingeniero en Informática y Software con más de 4 años de experiencia diseñando y construyendo arquitecturas backend escalables (FastAPI, NestJS, Python 3, PostgreSQL), aplicaciones web reactivas (React 19, Vite, TailwindCSS), bots de automatización multi-dispositivo (Python, Selenium, Android ADB Tools), soluciones móviles y desktop (Flutter, Android Studio, Electron.js) y desarrollo de videojuegos en Roblox Studio (Luau, Rojo SDK).",
   location: "Los Teques, Estado Miranda | Remote Global",
   contact: {
     email: "andradescesar2024@gmail.com",
@@ -24,27 +24,27 @@ export const INITIAL_RESUME: ResumeData = {
   },
   skillGroups: [
     {
-      category: "Backend & Server Architecture",
-      skills: ["FastAPI", "NestJS", "Python 3", "TypeScript", "Node.js", "PostgreSQL", "Supabase"]
+      category: "Backend & Systems (Python / Node / C++)",
+      skills: ["FastAPI", "NestJS", "Python 3 (AsyncIO)", "TypeScript", "Node.js", "C++17", "PostgreSQL", "Supabase"]
     },
     {
-      category: "Frontend & UI Engineering",
+      category: "Frontend & Web Architecture",
       skills: ["React 19", "Vite", "Framer Motion", "TailwindCSS", "HTML5 Semántico", "JavaScript ES6+"]
     },
     {
-      category: "Roblox Game Dev & Mobile",
+      category: "Roblox Game Dev & Mobile Apps",
       skills: ["Roblox Studio (Luau)", "Rojo Workflow", "Flutter", "Android Studio (ADB)", "Electron.js"]
     },
     {
-      category: "Python Automation & DevOps",
-      skills: ["Selenium ADB Bots", "MetaTrader 5 SDK", "OANDA API", "Nginx VPS", "Docker", "Git CLI"]
+      category: "Python Automation & Infrastructure",
+      skills: ["Selenium ADB Bots", "MetaTrader 5 SDK", "OANDA API", "Linux VPS (Nginx)", "Docker", "Git CLI"]
     }
   ],
   projects: [
     {
       id: "p0",
       title: "REEBCA — Enterprise Appointment & Inventory Platform",
-      description: "Plataforma web empresarial desarrollada como Proyecto Socio-Integrador para agendamiento de citas, control de inventario de insumos y despliegue automatizado en VPS.",
+      description: "Plataforma web empresarial desarrollada como Proyecto Socio-Integrador para agendamiento de citas, control de inventario de insumos y despliegue automatizado en servidor VPS Linux.",
       tags: ["FastAPI", "Python 3.10+", "React 18", "PostgreSQL", "Nginx VPS", "Systemd"],
       githubUrl: "https://github.com/SoyRiper/REEBCA-Management-Platform",
       badge: "Enterprise Platform"
@@ -100,6 +100,17 @@ export const INITIAL_RESUME: ResumeData = {
   ],
   experience: [
     {
+      id: "exp_senior",
+      role: "Ingeniero de Software Senior & Full-Stack Developer",
+      company: "Proyectos Independientes & Consultoría",
+      period: "2022 - Presente (4+ Años)",
+      description: [
+        "Lideré el desarrollo e ingeniería de software de múltiples soluciones empresariales, desde APIs en FastAPI/NestJS hasta aplicaciones web en React 19.",
+        "Desarrollé bots avanzados de automatización en Python integrando Selenium y Android ADB Platform Tools para control multi-dispositivo.",
+        "Construí motores de trading algorítmico y sistemas cuantitativos de alta frecuencia conectados a MetaTrader 5 y OANDA."
+      ]
+    },
+    {
       id: "roblox",
       role: "Roblox Game Developer & Scripter",
       company: "Comunidad Roblox Studio (@Riperdeveloper)",
@@ -111,7 +122,7 @@ export const INITIAL_RESUME: ResumeData = {
     },
     {
       id: "0",
-      role: "Lead Full-Stack Developer",
+      role: "Lead Full-Stack Developer & Systems Architect",
       company: "Proyecto Socio-Integrador REEBCA (IUTA)",
       period: "2025 - 2026",
       description: [
@@ -122,7 +133,7 @@ export const INITIAL_RESUME: ResumeData = {
     },
     {
       id: "1",
-      role: "Co-Founder & Lead Developer",
+      role: "Co-Founder & Lead Engineer",
       company: "Denail (AI & Coffee Tech Platform)",
       period: "2024 - Presente",
       description: [
