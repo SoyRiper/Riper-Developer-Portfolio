@@ -3,44 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cesar Morales (SoyRiper) — Full Stack & Systems Engineer</title>
+    <title>Cesar Morales (SoyRiper) — Full-Stack & Systems Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
     <script>
       tailwind.config = {
-        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+              sans: ['Plus Jakarta Sans', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+              mono: ['Fira Code', 'monospace'],
             },
             colors: {
-              page: '#07090e',
-              card: '#0d111a',
-              cardHover: '#131926',
-              border: '#1f293d',
-              subtle: '#94a3b8',
-              primary: '#f8fafc',
-              neonCyan: '#06b6d4',
-              neonEmerald: '#10b981',
-              neonPurple: '#a855f7',
-            },
-            animation: {
-              'pulse-glow': 'pulseGlow 3s infinite alternate',
-              'scanline': 'scanline 8s linear infinite',
-              'float': 'float 4s ease-in-out infinite',
-            },
-            keyframes: {
-              pulseGlow: {
-                '0%': { boxShadow: '0 0 15px rgba(6, 182, 212, 0.2)' },
-                '100%': { boxShadow: '0 0 35px rgba(16, 185, 129, 0.4)' },
-              },
-              float: {
-                '0%, 100%': { transform: 'translateY(0px)' },
-                '50%': { transform: 'translateY(-8px)' },
-              }
+              // European Atelier Dark Palette
+              page: '#131416',       // Dominante (60%): Gris Piedra Volcánica
+              surface: '#1E2024',    // Estructural Contenedores (30%): Grafito Mate
+              borderLine: '#2A2C31', // Estructural Bordes: 1px Fine Line
+              textMain: '#E5E5E0',   // Estructural Texto Principal: Blanco Hueso Apagado
+              textMuted: '#8A8E95',  // Estructural Texto Secundario: Gris Secundario
+              accent: '#C5A880',     // Acento (10%): Champagne Satinado / Dorado Satinado
+              accentHover: '#D8BC95',
             }
           }
         }
@@ -48,54 +32,43 @@
     </script>
     <style>
       body {
-        background-color: #07090e;
-        color: #f8fafc;
-        font-family: 'Inter', sans-serif;
+        background-color: #131416;
+        color: #E5E5E0;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         overflow-x: hidden;
       }
       
       ::selection {
-        background: #06b6d4;
-        color: #000000;
+        background: #C5A880;
+        color: #131416;
       }
 
-      /* Custom Cyber Grid Background */
-      .bg-cyber-grid {
-        background-image: 
-          radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.12) 0%, transparent 60%),
-          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        background-size: 100% 100%, 40px 40px, 40px 40px;
+      /* Custom 1px Border Utility */
+      .border-atelier {
+        border: 1px solid #2A2C31;
       }
 
-      /* Glassmorphism */
-      .glass-card {
-        background: rgba(13, 17, 26, 0.75);
-        backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+      .border-atelier-accent {
+        border: 1px solid rgba(197, 168, 128, 0.4);
       }
 
-      .glass-card:hover {
-        border-color: rgba(6, 182, 212, 0.4);
-      }
-
-      /* Scrollbar */
+      /* Subtle Custom Scrollbar */
       ::-webkit-scrollbar {
-        width: 8px;
+        width: 6px;
       }
       ::-webkit-scrollbar-track {
-        background: #07090e;
+        background: #131416;
       }
       ::-webkit-scrollbar-thumb {
-        background: #1e293b;
-        border-radius: 4px;
+        background: #2A2C31;
+        border-radius: 3px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #06b6d4;
+        background: #C5A880;
       }
     </style>
   </head>
-  <body class="bg-cyber-grid">
+  <body class="bg-[#131416]">
     <div id="root"></div>
     <script type="module" src="/App.tsx"></script>
   </body>

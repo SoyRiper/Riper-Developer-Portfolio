@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Code2, Copy, Check, FileCode, Cpu } from 'lucide-react';
+import { Code2, Copy, Check, FileCode } from 'lucide-react';
 import { Project } from '../types';
 
 interface CodeExplorerProps {
@@ -21,20 +21,20 @@ export const CodeExplorer: React.FC<CodeExplorerProps> = ({ projects }) => {
   };
 
   return (
-    <div className="bg-[#0c0e14] border border-cyan-500/30 rounded-2xl overflow-hidden shadow-2xl">
+    <div className="bg-[#1E2024] border border-[#2A2C31] rounded-2xl overflow-hidden shadow-none">
       {/* Tab Navigation */}
-      <div className="bg-[#121622] px-4 py-3 border-b border-cyan-500/20 flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-[#131416] px-4 py-3 border-b border-[#2A2C31] flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2 overflow-x-auto">
-          <Code2 className="text-cyan-400" size={18} />
-          <span className="text-xs font-mono font-bold text-zinc-300 mr-2">Code Snippet Explorer:</span>
+          <Code2 className="text-[#C5A880]" size={18} />
+          <span className="text-xs font-mono font-bold text-[#E5E5E0] mr-2">Inspector de Código:</span>
           {projectsWithCode.map((p) => (
             <button
               key={p.id}
               onClick={() => setSelectedId(p.id)}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${
                 selectedId === p.id
-                  ? 'bg-cyan-500/20 border border-cyan-400/50 text-cyan-300 font-semibold shadow'
-                  : 'bg-zinc-900/60 text-zinc-400 border border-zinc-800 hover:text-white hover:border-zinc-700'
+                  ? 'bg-[#C5A880] text-[#131416] font-bold'
+                  : 'bg-[#1E2024] text-[#8A8E95] border border-[#2A2C31] hover:text-[#E5E5E0]'
               }`}
             >
               <FileCode size={13} />
@@ -45,20 +45,20 @@ export const CodeExplorer: React.FC<CodeExplorerProps> = ({ projects }) => {
 
         <button
           onClick={handleCopy}
-          className="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-zinc-300 text-xs font-mono rounded-lg transition-colors flex items-center gap-1.5"
+          className="px-3 py-1.5 bg-[#131416] hover:bg-[#2A2C31] border border-[#2A2C31] text-[#E5E5E0] text-xs font-mono rounded-lg transition-colors flex items-center gap-1.5"
         >
-          {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+          {copied ? <Check size={14} className="text-[#C5A880]" /> : <Copy size={14} />}
           {copied ? '¡Copiado!' : 'Copiar Código'}
         </button>
       </div>
 
       {/* Code Display */}
-      <div className="p-5 font-mono text-xs text-zinc-200 overflow-x-auto leading-relaxed bg-[#07090f]">
-        <div className="text-[11px] text-cyan-400/80 mb-3 pb-2 border-b border-zinc-800/80 flex items-center justify-between">
-          <span>// Proyecto: {selectedProject?.title} ({selectedProject?.badge})</span>
-          <span className="text-zinc-500">Stack: {selectedProject?.tags.join(' | ')}</span>
+      <div className="p-5 font-mono text-xs text-[#E5E5E0] overflow-x-auto leading-relaxed bg-[#131416]">
+        <div className="text-[11px] text-[#8A8E95] mb-3 pb-2 border-b border-[#2A2C31] flex items-center justify-between">
+          <span>// Proyecto: {selectedProject?.title}</span>
+          <span className="text-[#C5A880]">Stack: {selectedProject?.tags.join(' | ')}</span>
         </div>
-        <pre className="text-emerald-400/90 whitespace-pre-wrap font-mono">
+        <pre className="text-[#E5E5E0] whitespace-pre-wrap font-mono">
           <code>{selectedProject?.codeSnippet}</code>
         </pre>
       </div>

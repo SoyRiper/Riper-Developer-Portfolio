@@ -3,8 +3,8 @@ import { ResumeData } from './types';
 export const INITIAL_RESUME: ResumeData = {
   fullName: "Cesar Enrique Morales Andrades",
   handle: "SoyRiper / Riper",
-  title: "Full-Stack & Systems Developer | Co-Founder at Denail",
-  bio: "Ingeniero de Software apasionado por construir sistemas distribuidos de alto rendimiento, backends empresariales (NestJS/TypeScript/Python), plataformas de trading algorítmico (MetaTrader 5/OANDA API) e integraciones con Inteligencia Artificial (Google Gemini API).",
+  title: "Senior Full-Stack & Systems Engineer | Co-Founder at Denail",
+  bio: "Ingeniero de Software especializado en la construcción de arquitecturas backend escalables (NestJS, TypeScript, Python, SQL), interfaces web reactivas de alta fidelidad (React 19, Vite, Framer Motion), motores de trading algorítmico (MetaTrader 5, OANDA) e integraciones avanzadas con Inteligencia Artificial (Google Gemini API). Enfocado en código mantenible, alta disponibilidad y soluciones orientadas al usuario final.",
   location: "Los Teques, Estado Miranda | Remote Global",
   contact: {
     email: "andradescesar2024@gmail.com",
@@ -18,19 +18,19 @@ export const INITIAL_RESUME: ResumeData = {
   },
   skillGroups: [
     {
-      category: "Backend & Enterprise Architecture",
-      skills: ["NestJS", "TypeScript", "Node.js", "Python", "SQL / PostgreSQL", "Supabase"]
+      category: "Backend & Server Architecture",
+      skills: ["NestJS", "TypeScript", "Node.js", "Python 3", "PostgreSQL", "Supabase"]
     },
     {
-      category: "Frontend & UI/UX Experience",
-      skills: ["React 19", "Vite", "Framer Motion", "TailwindCSS", "HTML5/CSS3", "JavaScript ES6+"]
+      category: "Frontend & UI Engineering",
+      skills: ["React 19", "Vite", "Framer Motion", "TailwindCSS", "HTML5 Semántico", "JavaScript ES6+"]
     },
     {
       category: "FinTech & Systems Programming",
       skills: ["C++17", "MetaTrader 5 SDK", "OANDA v20 API", "WebSockets", "Linux", "CMake"]
     },
     {
-      category: "AI Integration & Mobile Dev",
+      category: "AI Integration & Tools",
       skills: ["Google Gemini API", "Gemma LLMs", "Android Native", "Docker", "Git / GitHub CLI"]
     }
   ],
@@ -44,7 +44,6 @@ export const INITIAL_RESUME: ResumeData = {
       badge: "FinTech & Trading",
       codeSnippet: `# MetaTrader 5 Execution Kernel - VelocityTrader
 import MetaTrader5 as mt5
-import time
 
 def execute_algorithmic_trade(symbol, order_type, volume, sl_points, tp_points):
     if not mt5.initialize():
