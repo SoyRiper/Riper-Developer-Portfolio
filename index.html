@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cesar Morales (SoyRiper) — Full-Stack & Systems Engineer</title>
+    <title>Cesar Morales (SoyRiper) — Full-Stack, Mobile & Systems Engineer</title>
+    
+    <!-- Favicon Links -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/assets/riper_avatar.png" />
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
@@ -38,38 +44,25 @@
         overflow-x: hidden;
       }
       
-      ::selection {
-        background: #C5A880;
-        color: #131416;
-      }
-
-      /* Custom 1px Border Utility */
-      .border-atelier {
-        border: 1px solid #2A2C31;
-      }
-
-      .border-atelier-accent {
-        border: 1px solid rgba(197, 168, 128, 0.4);
-      }
-
-      /* Subtle Custom Scrollbar */
+      /* Custom scrollbar */
       ::-webkit-scrollbar {
-        width: 6px;
+        width: 8px;
+        height: 8px;
       }
       ::-webkit-scrollbar-track {
         background: #131416;
       }
       ::-webkit-scrollbar-thumb {
         background: #2A2C31;
-        border-radius: 3px;
+        border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
         background: #C5A880;
       }
     </style>
   </head>
-  <body class="bg-[#131416]">
+  <body class="bg-[#131416] text-[#E5E5E0] selection:bg-[#C5A880] selection:text-[#131416]">
     <div id="root"></div>
-    <script type="module" src="/App.tsx"></script>
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>
