@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ResumeData } from '../types';
-import { Mail, Github, Linkedin, Terminal as TerminalIcon, Cpu, ShieldCheck, FolderGit2, ArrowUpRight, Sparkles, Layers, Phone, MessageSquare } from 'lucide-react';
+import { Mail, Github, Linkedin, Terminal as TerminalIcon, Cpu, ShieldCheck, FolderGit2, ArrowUpRight, Sparkles, Layers, Phone, MessageSquare, Download, FileText } from 'lucide-react';
 import { BinaryCanvas } from './BinaryCanvas';
 import { TerminalIntro } from './TerminalIntro';
 import { InteractiveTerminal } from './InteractiveTerminal';
@@ -32,14 +32,20 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
     return 'devicon-devicon-plain text-[#8A8E95]';
   };
 
+  const handlePrintCV = () => {
+    window.print();
+  };
+
   return (
     <div className="min-h-screen bg-[#131416] text-[#E5E5E0] font-sans flex flex-col items-center relative selection:bg-[#C5A880] selection:text-[#131416]">
       
       {/* Background Stream */}
-      <BinaryCanvas />
+      <div className="print:hidden w-full flex flex-col items-center">
+        <BinaryCanvas />
+      </div>
 
       {/* Header Navigation */}
-      <header className="w-full max-w-6xl px-6 py-6 flex justify-between items-center border-b border-[#2A2C31] sticky top-0 bg-[#131416]/90 backdrop-blur-md z-50">
+      <header className="print:hidden w-full max-w-6xl px-6 py-6 flex justify-between items-center border-b border-[#2A2C31] sticky top-0 bg-[#131416]/90 backdrop-blur-md z-50">
         <div className="flex items-center gap-3">
           <div>
             <span className="font-bold text-[#E5E5E0] tracking-tight font-display text-lg block">{data?.fullName}</span>
@@ -50,24 +56,22 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
           </div>
         </div>
 
-        <nav className="flex gap-6 text-xs font-mono text-[#8A8E95] items-center">
-          <a href="#about" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Sobre mí</a>
-          <a href="#projects" className="hover:text-[#E5E5E0] transition-colors">Proyectos</a>
+        <nav className="flex gap-4 text-xs font-mono text-[#8A8E95] items-center">
+          <a href="#about" className="hover:text-[#E5E5E0] transition-colors hidden lg:inline">Sobre mí</a>
+          <a href="#projects" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Proyectos</a>
           <a href="#architecture" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Arquitectura</a>
-          <a href="#cli" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Terminal CLI</a>
-          <a href="#stack" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Stack</a>
-          <a
-            href={data?.contact?.whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#C5A880] border border-[#2A2C31] px-3.5 py-1.5 rounded-xl hover:bg-[#1E2024] hover:border-[#C5A880]/60 transition-all font-mono text-xs flex items-center gap-1.5"
+          
+          <button
+            onClick={handlePrintCV}
+            className="bg-[#C5A880] text-[#131416] font-bold px-4 py-2 rounded-xl hover:bg-[#D8BC95] transition-all font-mono text-xs flex items-center gap-1.5 shadow-md"
           >
-            <Phone size={13} /> WhatsApp <ArrowUpRight size={12} />
-          </a>
+            <FileText size={14} /> Descargar CV (PDF)
+          </button>
         </nav>
       </header>
 
-      <main className="w-full max-w-6xl px-6 py-16 space-y-32 relative z-10">
+      {/* MAIN SCREEN DISPLAY */}
+      <main className="print:hidden w-full max-w-6xl px-6 py-16 space-y-32 relative z-10">
         
         {/* HERO SECTION */}
         <section id="about" className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-4">
@@ -98,35 +102,27 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             {/* ANIMATED TERMINAL INTRO WIDGET */}
             <TerminalIntro />
 
-            {/* CONTACT BADGES GRID */}
+            {/* ACTION BUTTONS */}
             <div className="flex flex-wrap gap-3 text-xs font-mono pt-2">
+              <button
+                onClick={handlePrintCV}
+                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#C5A880] text-[#131416] font-bold hover:bg-[#D8BC95] transition-all shadow-lg font-mono"
+              >
+                <Download size={16} /> Descargar Curriculum Vitae (PDF)
+              </button>
               <a
                 href={data?.contact?.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
+                className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
               >
-                <Phone size={15} className="text-[#C5A880]" /> WhatsApp: {data?.contact?.phone} <ArrowUpRight size={13} />
-              </a>
-              <a
-                href={data?.contact?.discord}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
-              >
-                <MessageSquare size={15} className="text-[#C5A880]" /> Discord: {data?.discordTag}
-              </a>
-              <a
-                href={`mailto:${data?.contact?.email}`}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
-              >
-                <Mail size={15} className="text-[#C5A880]" /> {data?.contact?.email}
+                <Phone size={15} className="text-[#C5A880]" /> WhatsApp: {data?.contact?.phone}
               </a>
               <a
                 href={data?.contact?.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
+                className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
               >
                 <Linkedin size={15} className="text-[#C5A880]" /> LinkedIn <ArrowUpRight size={13} />
               </a>
@@ -134,7 +130,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
                 href={data?.contact?.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
+                className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
               >
                 <Github size={15} className="text-[#C5A880]" /> GitHub @SoyRiper <ArrowUpRight size={13} />
               </a>
@@ -285,19 +281,84 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
 
       </main>
 
+      {/* PRINT-ONLY RESUME VIEW FOR HIGH QUALITY ATS PDF GENERATION */}
+      <div className="hidden print:block w-full max-w-4xl p-8 bg-white text-black font-sans leading-normal">
+        <div className="border-b-2 border-black pb-4 mb-6">
+          <h1 className="text-3xl font-bold uppercase tracking-tight">{data?.fullName}</h1>
+          <p className="text-base font-semibold text-gray-800">{data?.title}</p>
+          <div className="text-xs text-gray-600 flex flex-wrap gap-4 mt-2">
+            <span>Email: {data?.contact?.email}</span>
+            <span>Teléfono / WhatsApp: {data?.contact?.phone}</span>
+            <span>GitHub: github.com/SoyRiper</span>
+            <span>LinkedIn: morales-andrades</span>
+            <span>Roblox Dev: @Riperdeveloper</span>
+          </div>
+        </div>
+
+        <div className="mb-6">
+          <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-400 pb-1 mb-2">Perfil Profesional</h2>
+          <p className="text-xs text-gray-800 leading-relaxed">{data?.bio}</p>
+        </div>
+
+        <div className="mb-6">
+          <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-400 pb-1 mb-3">Experiencia Laboral & Proyectos Destacados</h2>
+          <div className="space-y-4">
+            {(data?.experience || []).map((exp) => (
+              <div key={exp.id}>
+                <div className="flex justify-between text-xs font-bold">
+                  <span>{exp.company} — {exp.role}</span>
+                  <span>{exp.period}</span>
+                </div>
+                <ul className="list-disc list-inside text-[11px] text-gray-700 mt-1 space-y-1">
+                  {exp.description.map((d, idx) => (
+                    <li key={idx}>{d}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-6">
+          <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-400 pb-1 mb-3">Repositorios Principales en GitHub</h2>
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            {(data?.projects || []).slice(0, 6).map((p) => (
+              <div key={p.id} className="border border-gray-300 p-2 rounded">
+                <div className="font-bold text-black">{p.title}</div>
+                <div className="text-[10px] text-gray-600">{p.description}</div>
+                <div className="text-[9px] text-gray-500 font-mono mt-1">Stack: {p.tags.join(', ')}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-400 pb-1 mb-2">Habilidades Técnicas</h2>
+          <div className="text-xs space-y-1">
+            {(data?.skillGroups || []).map((g, idx) => (
+              <div key={idx}>
+                <span className="font-bold text-gray-900">{g.category}: </span>
+                <span className="text-gray-700">{g.skills.join(', ')}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* FOOTER */}
-      <footer className="w-full border-t border-[#2A2C31] mt-auto bg-[#0d0e10] relative z-10">
+      <footer className="print:hidden w-full border-t border-[#2A2C31] mt-auto bg-[#0d0e10] relative z-10">
         <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center text-xs text-[#8A8E95] font-mono">
           <div className="mb-4 md:mb-0 flex items-center gap-2">
             <TerminalIcon size={14} className="text-[#C5A880]" />
             <span>{data?.fullName} (@{data?.handle}) © {new Date().getFullYear()}</span>
           </div>
           <div className="flex flex-wrap gap-6">
-             <a href={data?.contact?.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">WhatsApp ({data?.contact?.phone})</a>
-             <a href={data?.contact?.discord} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">Discord ({data?.discordTag})</a>
+             <button onClick={handlePrintCV} className="text-[#C5A880] hover:underline font-bold flex items-center gap-1">
+               <FileText size={12} /> Descargar CV PDF
+             </button>
+             <a href={data?.contact?.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">WhatsApp</a>
              <a href={data?.contact?.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">LinkedIn</a>
              <a href={data?.contact?.github} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">GitHub</a>
-             <a href={`mailto:${data?.contact?.email}`} className="hover:text-[#C5A880] transition-colors">Email</a>
           </div>
         </div>
       </footer>
