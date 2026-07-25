@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ResumeData } from '../types';
-import { Mail, Github, Linkedin, Code2, Terminal as TerminalIcon, Cpu, ShieldCheck, FolderGit2, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Mail, Github, Linkedin, Terminal as TerminalIcon, Cpu, ShieldCheck, FolderGit2, ArrowUpRight, Sparkles, Layers } from 'lucide-react';
 import { BinaryCanvas } from './BinaryCanvas';
 import { TerminalIntro } from './TerminalIntro';
 import { InteractiveTerminal } from './InteractiveTerminal';
-import { CodeExplorer } from './CodeExplorer';
+import { ArchitectureMetrics } from './ArchitectureMetrics';
 import { AvatarToggle } from './AvatarToggle';
 import { ProjectCard } from './ProjectCard';
 
@@ -53,7 +53,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
         <nav className="flex gap-8 text-xs font-mono text-[#8A8E95] items-center">
           <a href="#about" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Sobre mí</a>
           <a href="#projects" className="hover:text-[#E5E5E0] transition-colors">Proyectos</a>
-          <a href="#code" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Código</a>
+          <a href="#architecture" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Arquitectura</a>
           <a href="#cli" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Terminal CLI</a>
           <a href="#stack" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Stack</a>
           <a
@@ -156,8 +156,8 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
           </div>
         </section>
 
-        {/* CODE EXPLORER SECTION */}
-        <section id="code" className="space-y-4">
+        {/* ARCHITECTURE & METRICS SECTION (REPLACES CODE INSPECTOR) */}
+        <section id="architecture" className="space-y-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -165,14 +165,14 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-4 mb-3">
-              <Code2 className="text-[#C5A880]" size={24} />
-              <h2 className="text-2xl font-bold tracking-tight text-[#E5E5E0] font-display">Inspector de Código de Producción</h2>
+              <Layers className="text-[#C5A880]" size={24} />
+              <h2 className="text-2xl font-bold tracking-tight text-[#E5E5E0] font-display">Arquitectura de Sistemas & Métricas de Impacto</h2>
               <div className="h-px bg-[#2A2C31] flex-1"></div>
             </div>
             <p className="text-xs text-[#8A8E95] font-mono mb-4">
-              Selecciona cualquier proyecto para examinar la sintaxis con el motor de tipeo dinámico en vivo:
+              Explora los patrones de diseño, rendimiento y flujo de datos de mis sistemas en producción:
             </p>
-            <CodeExplorer projects={data?.projects || []} />
+            <ArchitectureMetrics />
           </motion.div>
         </section>
 
