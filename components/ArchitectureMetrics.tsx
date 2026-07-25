@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Cpu, Server, Zap, Database, ShieldCheck, Activity, Layers, ArrowUpRight } from 'lucide-react';
+import { Cpu, Server, Zap, Activity, Globe } from 'lucide-react';
 
 export const ArchitectureMetrics: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'backend' | 'fintech' | 'ai'>('backend');
+  const [activeTab, setActiveTab] = useState<'reebca' | 'backend' | 'fintech' | 'ai'>('reebca');
 
   const architectures = {
+    reebca: {
+      title: "Plataforma Empresarial REEBCA (FastAPI, React 18, VPS & PostgreSQL)",
+      metrics: [
+        { label: "Tiempo Respuesta API", value: "< 18ms", desc: "API REST asíncrona construida con FastAPI & Uvicorn" },
+        { label: "Despliegue VPS", value: "Automatizado", desc: "Scripts Python para Nginx, Gunicorn y Systemd Daemon" },
+        { label: "Gestión de Datos", value: "PostgreSQL", desc: "Módulos de agendamiento, clientes e inventario de insumos" }
+      ],
+      flow: ["React 18 Frontend", "FastAPI / Uvicorn Server", "PostgreSQL Engine", "Linux VPS / Nginx Reverse Proxy"]
+    },
     backend: {
       title: "Arquitectura Backend Empresarial (NestJS & Supabase)",
       metrics: [
@@ -42,6 +51,16 @@ export const ArchitectureMetrics: React.FC = () => {
       {/* Category Tabs */}
       <div className="flex flex-wrap gap-2 pb-4 border-b border-[#2A2C31]">
         <button
+          onClick={() => setActiveTab('reebca')}
+          className={`px-4 py-2 rounded-xl text-xs font-mono transition-all flex items-center gap-2 ${
+            activeTab === 'reebca'
+              ? 'bg-[#C5A880] text-[#131416] font-bold shadow-md'
+              : 'bg-[#131416] text-[#8A8E95] border border-[#2A2C31] hover:text-[#E5E5E0]'
+          }`}
+        >
+          <Globe size={14} /> REEBCA (FastAPI + VPS)
+        </button>
+        <button
           onClick={() => setActiveTab('backend')}
           className={`px-4 py-2 rounded-xl text-xs font-mono transition-all flex items-center gap-2 ${
             activeTab === 'backend'
@@ -49,7 +68,7 @@ export const ArchitectureMetrics: React.FC = () => {
               : 'bg-[#131416] text-[#8A8E95] border border-[#2A2C31] hover:text-[#E5E5E0]'
           }`}
         >
-          <Server size={14} /> Backend & Enterprise
+          <Server size={14} /> NestJS Enterprise
         </button>
         <button
           onClick={() => setActiveTab('fintech')}
@@ -59,7 +78,7 @@ export const ArchitectureMetrics: React.FC = () => {
               : 'bg-[#131416] text-[#8A8E95] border border-[#2A2C31] hover:text-[#E5E5E0]'
           }`}
         >
-          <Zap size={14} /> FinTech & Trading Low-Latency
+          <Zap size={14} /> FinTech & Trading
         </button>
         <button
           onClick={() => setActiveTab('ai')}
@@ -69,7 +88,7 @@ export const ArchitectureMetrics: React.FC = () => {
               : 'bg-[#131416] text-[#8A8E95] border border-[#2A2C31] hover:text-[#E5E5E0]'
           }`}
         >
-          <Cpu size={14} /> AI & Audio Engineering
+          <Cpu size={14} /> AI & Audio Engine
         </button>
       </div>
 

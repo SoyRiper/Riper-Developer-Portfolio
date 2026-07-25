@@ -4,7 +4,7 @@ export const INITIAL_RESUME: ResumeData = {
   fullName: "Cesar Enrique Morales Andrades",
   handle: "SoyRiper / Riper",
   title: "Senior Full-Stack & Systems Engineer | Co-Founder at Denail",
-  bio: "Ingeniero de Software especializado en la construcción de arquitecturas backend escalables (NestJS, TypeScript, Python, SQL), interfaces web reactivas de alta fidelidad (React 19, Vite, Framer Motion), motores de trading algorítmico (MetaTrader 5, OANDA) e integraciones avanzadas con Inteligencia Artificial (Google Gemini API). Enfocado en código mantenible, alta disponibilidad y soluciones orientadas al usuario final.",
+  bio: "Ingeniero de Software especializado en la construcción de arquitecturas backend escalables (NestJS, FastAPI, Python, TypeScript, SQL), interfaces web reactivas de alta fidelidad (React 19, Vite, Framer Motion), motores de trading algorítmico (MetaTrader 5, OANDA) y proyectos socio-integradores de gestión empresarial (REEBCA). Enfocado en código limpio, automatización de despliegues VPS y soluciones orientadas al usuario final.",
   location: "Los Teques, Estado Miranda | Remote Global",
   contact: {
     email: "andradescesar2024@gmail.com",
@@ -19,7 +19,7 @@ export const INITIAL_RESUME: ResumeData = {
   skillGroups: [
     {
       category: "Backend & Server Architecture",
-      skills: ["NestJS", "TypeScript", "Node.js", "Python 3", "PostgreSQL", "Supabase"]
+      skills: ["FastAPI", "NestJS", "Python 3", "TypeScript", "Node.js", "PostgreSQL", "Supabase"]
     },
     {
       category: "Frontend & UI Engineering",
@@ -27,47 +27,29 @@ export const INITIAL_RESUME: ResumeData = {
     },
     {
       category: "FinTech & Systems Programming",
-      skills: ["C++17", "MetaTrader 5 SDK", "OANDA v20 API", "WebSockets", "Linux", "CMake"]
+      skills: ["C++17", "MetaTrader 5 SDK", "OANDA v20 API", "WebSockets", "Linux VPS", "CMake"]
     },
     {
-      category: "AI Integration & Tools",
-      skills: ["Google Gemini API", "Gemma LLMs", "Android Native", "Docker", "Git / GitHub CLI"]
+      category: "AI Integration & DevOps",
+      skills: ["Google Gemini API", "Gemma LLMs", "Nginx", "Systemd", "Docker", "Git / GitHub CLI"]
     }
   ],
   projects: [
+    {
+      id: "p0",
+      title: "REEBCA — Enterprise Appointment & Inventory Platform",
+      description: "Plataforma web empresarial desarrollada como Proyecto Socio-Integrador para agendamiento de citas, control de inventario de insumos y despliegue automatizado en VPS.",
+      tags: ["FastAPI", "Python 3.10+", "React 18", "PostgreSQL", "Nginx VPS", "Systemd"],
+      githubUrl: "https://github.com/SoyRiper/REEBCA-Management-Platform",
+      badge: "Enterprise Platform"
+    },
     {
       id: "p1",
       title: "VelocityTrader — Algorithmic Crypto & Forex Platform",
       description: "Plataforma de trading algorítmico y análisis financiero cuantitativo en tiempo real conectada a MetaTrader 5 y OANDA v20 REST API.",
       tags: ["Python 3", "MetaTrader 5", "OANDA API", "Electron.js", "WebSockets"],
       githubUrl: "https://github.com/SoyRiper/VelocityTrader-Algorithmic-Platform",
-      badge: "FinTech & Trading",
-      codeSnippet: `# MetaTrader 5 Execution Kernel - VelocityTrader
-import MetaTrader5 as mt5
-
-def execute_algorithmic_trade(symbol, order_type, volume, sl_points, tp_points):
-    if not mt5.initialize():
-        raise Exception("MT5 Initialization failed")
-    
-    tick = mt5.symbol_info_tick(symbol)
-    price = tick.ask if order_type == 'BUY' else tick.bid
-    point = mt5.symbol_info(symbol).point
-    
-    request = {
-        "action": mt5.TRADE_ACTION_DEAL,
-        "symbol": symbol,
-        "volume": volume,
-        "type": mt5.ORDER_TYPE_BUY if order_type == 'BUY' else mt5.ORDER_TYPE_SELL,
-        "price": price,
-        "sl": price - (sl_points * point) if order_type == 'BUY' else price + (sl_points * point),
-        "tp": price + (tp_points * point) if order_type == 'BUY' else price - (tp_points * point),
-        "deviation": 10,
-        "magic": 202607,
-        "comment": "VelocityTrader AI AutoExecution",
-        "type_time": mt5.ORDER_TIME_GTC,
-    }
-    result = mt5.order_send(request)
-    return result.retcode == mt5.TRADE_RETCODE_DONE`
+      badge: "FinTech & Trading"
     },
     {
       id: "p2",
@@ -75,19 +57,7 @@ def execute_algorithmic_trade(symbol, order_type, volume, sl_points, tp_points):
       description: "Arquitectura backend empresarial diseñada bajo principios SOLID y Clean Architecture para la plataforma inteligente Denail.",
       tags: ["NestJS", "TypeScript", "Supabase", "PostgreSQL", "JWT Auth"],
       githubUrl: "https://github.com/SoyRiper/Denail-Backend-NestJS",
-      badge: "Backend Enterprise",
-      codeSnippet: `// NestJS Coffee Insights Controller
-@Controller('insights')
-@UseGuards(JwtAuthGuard)
-export class InsightsController {
-  constructor(private readonly insightsService: InsightsService) {}
-
-  @Get('user-productivity')
-  async getProductivityMetrics(@Req() req: RequestWithUser) {
-    const userId = req.user.id;
-    return await this.insightsService.calculateCaffeineEffect(userId);
-  }
-}`
+      badge: "Backend Enterprise"
     },
     {
       id: "p3",
@@ -95,23 +65,7 @@ export class InsightsController {
       description: "Estudio de producción musical e Inteligencia Artificial Full-Stack para composición, síntesis y generación en tiempo real de secuencias MIDI.",
       tags: ["Python Flask", "React 18", "Web Audio API", "Mido", "Music21"],
       githubUrl: "https://github.com/SoyRiper/AI-MIDI-Music-Studio",
-      badge: "Audio & AI Engine",
-      codeSnippet: `# MIDI Generation Engine
-from mido import Message, MidiFile, MidiTrack
-
-def generate_lofi_progression(chords, bpm=80):
-    mid = MidiFile()
-    track = MidiTrack()
-    mid.tracks.append(track)
-    
-    ticks_per_beat = mid.ticks_per_beat
-    for chord in chords:
-        for note in chord:
-            track.append(Message('note_on', note=note, velocity=64, time=0))
-        track.append(Message('note_off', note=chord[0], velocity=64, time=ticks_per_beat * 2))
-    
-    mid.save('lofi_output.mid')
-    return True`
+      badge: "Audio & AI Engine"
     },
     {
       id: "p4",
@@ -119,18 +73,7 @@ def generate_lofi_progression(chords, bpm=80):
       description: "Plataforma web reactiva impulsada por Google Gemini API para recomendación inteligente de cafés según nivel de energía y tareas diarias.",
       tags: ["React 19", "TypeScript", "Google Gemini API", "Framer Motion", "Supabase"],
       githubUrl: "https://github.com/SoyRiper/Cafe-pagina-Denail",
-      badge: "AI & Full-Stack",
-      codeSnippet: `// Gemini AI Smart Recommendation Hook
-export const useGeminiCoffeeAI = () => {
-  const getAIRecommendation = async (mood: string, task: string) => {
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: \`Suggest the best coffee for mood: \${mood} and task: \${task}\`,
-    });
-    return response.text;
-  };
-  return { getAIRecommendation };
-};`
+      badge: "AI & Full-Stack"
     },
     {
       id: "p5",
@@ -138,15 +81,7 @@ export const useGeminiCoffeeAI = () => {
       description: "Sistema web interactivo para gestión de comunidades, clanes, perfiles de usuario y catálogo de medallas con persistencia en SQL.",
       tags: ["HTML5", "JavaScript ES6+", "SQL Migration", "Responsive Layout"],
       githubUrl: "https://github.com/SoyRiper/RCorps",
-      badge: "Web Platform",
-      codeSnippet: `-- SQL Migration Script for Clans & User Roles
-CREATE TABLE IF NOT EXISTS clans (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE,
-    tag VARCHAR(10) NOT NULL,
-    leader_id INT REFERENCES users(id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);`
+      badge: "Web Platform"
     },
     {
       id: "p6",
@@ -154,28 +89,21 @@ CREATE TABLE IF NOT EXISTS clans (
       description: "Mod desarrollado en C++17 para Geometry Dash utilizando el SDK de Geode para recomendación dinámica de niveles de la comunidad.",
       tags: ["C++17", "CMake", "Geode SDK", "Native Game Modding"],
       githubUrl: "https://github.com/SoyRiper/gd-level-recommender",
-      badge: "C++ & Game Dev",
-      codeSnippet: `// Geode Mod Entrypoint in C++
-#include <Geode/Geode.hpp>
-#include <Geode/modify/MenuLayer.hpp>
-
-using namespace geode::prelude;
-
-class $modify(MyMenuLayer, MenuLayer) {
-    bool init() {
-        if (!MenuLayer::init()) return false;
-        
-        auto btn = CCMenuItemSpriteExtra::create(
-            CCSprite::create("recommender_icon.png"),
-            this,
-            menu_selector(MyMenuLayer::onRecommendLevels)
-        );
-        return true;
-    }
-};`
+      badge: "C++ & Game Dev"
     }
   ],
   experience: [
+    {
+      id: "0",
+      role: "Lead Full-Stack Developer",
+      company: "Proyecto Socio-Integrador REEBCA (IUTA)",
+      period: "2025 - 2026",
+      description: [
+        "Diseñé la arquitectura backend completa en FastAPI (Python 3.10+) con PostgreSQL para agendamiento de citas e inventarios.",
+        "Desarrollé la interfaz frontend en React 18 con autenticación de usuarios y paneles de control administrativo.",
+        "Implementé scripts automatizados de despliegue en servidor VPS Linux utilizando Nginx, Systemd y Gunicorn."
+      ]
+    },
     {
       id: "1",
       role: "Co-Founder & Lead Developer",
