@@ -1,17 +1,44 @@
-import React, { useState } from 'react';
-import { Code2, Copy, Check, FileCode } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Code2, Copy, Check, FileCode, Sparkles } from 'lucide-react';
 import { Project } from '../types';
 
 interface CodeExplorerProps {
   projects: Project[];
 }
 
-export const CodeExplorer: React.FC<CodeExplorerProps> = ({ projects }) => {
-  const projectsWithCode = projects.filter((p) => p.codeSnippet);
+export const CodeExplorer: React.FC<CodeExplorerProps> = ({ projects = [] }) => {
+  const projectsWithCode = (projects || []).filter((p) => p?.codeSnippet);
   const [selectedId, setSelectedId] = useState<string>(projectsWithCode[0]?.id || '');
   const [copied, setCopied] = useState<boolean>(false);
+  const [typedCode, setTypedCode] = useState<string>('');
+  const [isTyping, setIsTyping] = useState<boolean>(false);
 
-  const selectedProject = projectsWithCode.find((p) => p.id === selectedId) || projectsWithCode[0];
+  const selectedProject = projectsWithCode.find((p) => p?.id === selectedId) || projectsWithCode[0];
+
+  useEffect(() => {
+    if (!selectedProject?.codeSnippet) return;
+    
+    setIsTyping(true);
+    setTypedCode('');
+    
+    const fullSnippet = selectedProject.codeSnippet;
+    let index = 0;
+    const chunkSize = 4; // Fast typewriter speed for coding effect
+
+    const interval = setInterval(() => {
+      index += chunkSize;
+      if (index >= fullSnippet.length) {
+        setTypedCode(fullSnippet);
+        setIsTyping(false);
+        clearInterval(interval);
+      } else {
+        setTypedCode(fullSnippet.slice(0, index));
+      }
+    }, 15);
+
+    return () => clearInterval(interval);
+  }, [selectedId, selectedProject?.codeSnippet]);
 
   const handleCopy = () => {
     if (!selectedProject?.codeSnippet) return;
@@ -21,45 +48,52 @@ export const CodeExplorer: React.FC<CodeExplorerProps> = ({ projects }) => {
   };
 
   return (
-    <div className="bg-[#1E2024] border border-[#2A2C31] rounded-2xl overflow-hidden shadow-none">
-      {/* Tab Navigation */}
+    <div className="bg-[#1E2024] border border-[#2A2C31] rounded-2xl overflow-hidden shadow-none transition-all">
+      {/* Header Tabs Navigation */}
       <div className="bg-[#131416] px-4 py-3 border-b border-[#2A2C31] flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2 overflow-x-auto">
+        <div className="flex items-center gap-2 overflow-x-auto py-1">
           <Code2 className="text-[#C5A880]" size={18} />
           <span className="text-xs font-mono font-bold text-[#E5E5E0] mr-2">Inspector de Código:</span>
           {projectsWithCode.map((p) => (
             <button
               key={p.id}
               onClick={() => setSelectedId(p.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 relative ${
                 selectedId === p.id
-                  ? 'bg-[#C5A880] text-[#131416] font-bold'
-                  : 'bg-[#1E2024] text-[#8A8E95] border border-[#2A2C31] hover:text-[#E5E5E0]'
+                  ? 'bg-[#C5A880] text-[#131416] font-bold shadow-md'
+                  : 'bg-[#1E2024] text-[#8A8E95] border border-[#2A2C31] hover:text-[#E5E5E0] hover:border-[#C5A880]/40'
               }`}
             >
               <FileCode size={13} />
-              {p.title.split('—')[0].trim()}
+              <span>{p.title.split('—')[0].trim()}</span>
+              {selectedId === p.id && isTyping && (
+                <span className="w-1.5 h-1.5 rounded-full bg-[#131416] animate-ping ml-1"></span>
+              )}
             </button>
           ))}
         </div>
 
         <button
           onClick={handleCopy}
-          className="px-3 py-1.5 bg-[#131416] hover:bg-[#2A2C31] border border-[#2A2C31] text-[#E5E5E0] text-xs font-mono rounded-lg transition-colors flex items-center gap-1.5"
+          className="px-3.5 py-1.5 bg-[#131416] hover:bg-[#2A2C31] border border-[#2A2C31] text-[#E5E5E0] text-xs font-mono rounded-lg transition-colors flex items-center gap-1.5"
         >
           {copied ? <Check size={14} className="text-[#C5A880]" /> : <Copy size={14} />}
-          {copied ? '¡Copiado!' : 'Copiar Código'}
+          <span>{copied ? '¡Copiado!' : 'Copiar Código'}</span>
         </button>
       </div>
 
-      {/* Code Display */}
-      <div className="p-5 font-mono text-xs text-[#E5E5E0] overflow-x-auto leading-relaxed bg-[#131416]">
-        <div className="text-[11px] text-[#8A8E95] mb-3 pb-2 border-b border-[#2A2C31] flex items-center justify-between">
-          <span>// Proyecto: {selectedProject?.title}</span>
-          <span className="text-[#C5A880]">Stack: {selectedProject?.tags.join(' | ')}</span>
+      {/* Animated Code Display */}
+      <div className="p-5 font-mono text-xs text-[#E5E5E0] overflow-x-auto leading-relaxed bg-[#131416] min-h-[220px]">
+        <div className="text-[11px] text-[#8A8E95] mb-3 pb-2 border-b border-[#2A2C31] flex flex-wrap items-center justify-between gap-2">
+          <span>// Proyecto: {selectedProject?.title || 'Sin Título'}</span>
+          <span className="text-[#C5A880]">Stack: {(selectedProject?.tags || []).join(' | ')}</span>
         </div>
-        <pre className="text-[#E5E5E0] whitespace-pre-wrap font-mono">
-          <code>{selectedProject?.codeSnippet}</code>
+        
+        <pre className="text-[#E5E5E0] whitespace-pre-wrap font-mono relative">
+          <code>{typedCode}</code>
+          {isTyping && (
+            <span className="inline-block w-2 h-4 bg-[#C5A880] animate-pulse ml-0.5 align-middle"></span>
+          )}
         </pre>
       </div>
     </div>
