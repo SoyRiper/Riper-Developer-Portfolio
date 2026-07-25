@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ResumeData } from '../types';
-import { Mail, Github, Linkedin, Terminal as TerminalIcon, Cpu, ShieldCheck, FolderGit2, ArrowUpRight, Sparkles, Layers } from 'lucide-react';
+import { Mail, Github, Linkedin, Terminal as TerminalIcon, Cpu, ShieldCheck, FolderGit2, ArrowUpRight, Sparkles, Layers, Phone, MessageSquare } from 'lucide-react';
 import { BinaryCanvas } from './BinaryCanvas';
 import { TerminalIntro } from './TerminalIntro';
 import { InteractiveTerminal } from './InteractiveTerminal';
@@ -45,24 +45,24 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             <span className="font-bold text-[#E5E5E0] tracking-tight font-display text-lg block">{data?.fullName}</span>
             <span className="text-xs font-mono text-[#C5A880] flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] animate-pulse"></span>
-              {data?.handle}
+              {data?.handle} | Discord: {data?.discordTag}
             </span>
           </div>
         </div>
 
-        <nav className="flex gap-8 text-xs font-mono text-[#8A8E95] items-center">
+        <nav className="flex gap-6 text-xs font-mono text-[#8A8E95] items-center">
           <a href="#about" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Sobre mí</a>
           <a href="#projects" className="hover:text-[#E5E5E0] transition-colors">Proyectos</a>
           <a href="#architecture" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Arquitectura</a>
           <a href="#cli" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Terminal CLI</a>
           <a href="#stack" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Stack</a>
           <a
-            href={data?.contact?.linkedin}
+            href={data?.contact?.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#C5A880] border border-[#2A2C31] px-4 py-2 rounded-xl hover:bg-[#1E2024] hover:border-[#C5A880]/60 transition-all font-mono text-xs flex items-center gap-1.5"
+            className="text-[#C5A880] border border-[#2A2C31] px-3.5 py-1.5 rounded-xl hover:bg-[#1E2024] hover:border-[#C5A880]/60 transition-all font-mono text-xs flex items-center gap-1.5"
           >
-            <Linkedin size={13} /> LinkedIn <ArrowUpRight size={12} />
+            <Phone size={13} /> WhatsApp <ArrowUpRight size={12} />
           </a>
         </nav>
       </header>
@@ -80,7 +80,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1E2024] border border-[#2A2C31] text-[#C5A880] text-xs font-mono">
               <Sparkles size={13} />
-              <span>FULL-STACK & SYSTEMS ENGINEER</span>
+              <span>FULL-STACK, MOBILE & SYSTEMS ENGINEER</span>
             </div>
 
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight text-[#E5E5E0] font-display">
@@ -98,7 +98,24 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             {/* ANIMATED TERMINAL INTRO WIDGET */}
             <TerminalIntro />
 
-            <div className="flex flex-wrap gap-4 text-xs font-mono pt-2">
+            {/* CONTACT BADGES GRID */}
+            <div className="flex flex-wrap gap-3 text-xs font-mono pt-2">
+              <a
+                href={data?.contact?.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
+              >
+                <Phone size={15} className="text-[#C5A880]" /> WhatsApp: {data?.contact?.phone} <ArrowUpRight size={13} />
+              </a>
+              <a
+                href={data?.contact?.discord}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
+              >
+                <MessageSquare size={15} className="text-[#C5A880]" /> Discord: {data?.discordTag}
+              </a>
               <a
                 href={`mailto:${data?.contact?.email}`}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
@@ -111,7 +128,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
               >
-                <Linkedin size={15} className="text-[#C5A880]" /> LinkedIn Perfil <ArrowUpRight size={13} />
+                <Linkedin size={15} className="text-[#C5A880]" /> LinkedIn <ArrowUpRight size={13} />
               </a>
               <a
                 href={data?.contact?.github}
@@ -156,7 +173,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
           </div>
         </section>
 
-        {/* ARCHITECTURE & METRICS SECTION (REPLACES CODE INSPECTOR) */}
+        {/* ARCHITECTURE & METRICS SECTION */}
         <section id="architecture" className="space-y-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -275,7 +292,9 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             <TerminalIcon size={14} className="text-[#C5A880]" />
             <span>{data?.fullName} (@{data?.handle}) © {new Date().getFullYear()}</span>
           </div>
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-6">
+             <a href={data?.contact?.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">WhatsApp ({data?.contact?.phone})</a>
+             <a href={data?.contact?.discord} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">Discord ({data?.discordTag})</a>
              <a href={data?.contact?.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">LinkedIn</a>
              <a href={data?.contact?.github} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">GitHub</a>
              <a href={`mailto:${data?.contact?.email}`} className="hover:text-[#C5A880] transition-colors">Email</a>

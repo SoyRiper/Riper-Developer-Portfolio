@@ -1,7 +1,10 @@
 export interface ContactInfo {
   email: string;
+  phone: string;
+  whatsappUrl: string;
   linkedin: string;
   github: string;
+  discord: string;
   roblox?: string;
   location: string;
 }
@@ -37,6 +40,7 @@ export interface ExperienceItem {
 export interface ResumeData {
   fullName: string;
   handle: string;
+  discordTag: string;
   robloxHandle?: string;
   title: string;
   bio: string;

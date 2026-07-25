@@ -3,14 +3,18 @@ import { ResumeData } from './types';
 export const INITIAL_RESUME: ResumeData = {
   fullName: "Cesar Enrique Morales Andrades",
   handle: "SoyRiper / Riper",
+  discordTag: "@soyriper",
   robloxHandle: "@Riperdeveloper",
   title: "Senior Full-Stack, Mobile & Systems Engineer | Roblox Game Dev | Co-Founder at Denail",
   bio: "Ingeniero de Software especializado en arquitectura backend (NestJS, FastAPI, Python, SQL), desarrollo web reactivo (React 19, Vite, TailwindCSS), desarrollo de videojuegos en Roblox Studio (Luau, Rojo), bots de automatización multi-dispositivo (Python 3, Selenium, Android ADB Tools) y aplicaciones móviles / desktop (Flutter, Electron.js, Android Studio).",
   location: "Los Teques, Estado Miranda | Remote Global",
   contact: {
     email: "andradescesar2024@gmail.com",
+    phone: "+58 424-7674770",
+    whatsappUrl: "https://wa.me/584247674770",
     linkedin: "https://www.linkedin.com/in/cesar-enrique-morales-andrades-0803ba33b/",
     github: "https://github.com/SoyRiper",
+    discord: "https://discord.com/users/soyriper",
     roblox: "https://www.roblox.com/search/users?keyword=Riperdeveloper",
     location: "Remote / Global"
   },
