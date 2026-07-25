@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Terminal as TerminalIcon, Play, CornerDownLeft } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Terminal as TerminalIcon, Play, CornerDownLeft, Sparkles } from 'lucide-react';
 import { ResumeData } from '../types';
 
 interface TerminalProps {
@@ -7,23 +8,51 @@ interface TerminalProps {
 }
 
 export const InteractiveTerminal: React.FC<TerminalProps> = ({ data }) => {
-  const [history, setHistory] = useState<Array<{ cmd: string; output: React.ReactNode }>>([
-    {
-      cmd: 'init',
-      output: (
-        <div className="text-xs space-y-1 font-mono text-[#C5A880]">
-          <p>⚡ Entorno interactivo de Cesar Morales (SoyRiper) — Full-Stack Engineer</p>
-          <p className="text-[#8A8E95]">Escribe <span className="text-[#E5E5E0] font-bold">'help'</span> para listar comandos o usa las acciones rápidas.</p>
-        </div>
-      )
-    }
-  ]);
+  const [history, setHistory] = useState<Array<{ cmd: string; output: React.ReactNode }>>([]);
   const [input, setInput] = useState('');
+  const [typingText, setTypingText] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  const initLogs = [
+    "cesar@soyriper:~$ npx load-profile --user 'Cesar Morales'",
+    "✔ Backend Server: NestJS / Python MT5 / Supabase [ONLINE]",
+    "✔ Frontend Engine: React 19 / Vite / Framer Motion [ONLINE]",
+    "✔ Public Repositories: 6 Repositories Ready"
+  ];
+
+  // Animated typewriter when section comes into view or hover
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [history]);
+    setHistory([]);
+    let currentLineIndex = 0;
+
+    const runTypewriter = () => {
+      if (currentLineIndex < initLogs.length) {
+        const line = initLogs[currentLineIndex];
+        let charIndex = 0;
+
+        const charInterval = setInterval(() => {
+          setTypingText(line.slice(0, charIndex + 1));
+          charIndex++;
+
+          if (charIndex >= line.length) {
+            clearInterval(charInterval);
+            setHistory((prev) => [
+              ...prev,
+              {
+                cmd: currentLineIndex === 0 ? 'init' : 'system',
+                output: <span className="text-[#C5A880]">{line}</span>
+              }
+            ]);
+            setTypingText('');
+            currentLineIndex++;
+            setTimeout(runTypewriter, 200);
+          }
+        }, 20);
+      }
+    };
+
+    runTypewriter();
+  }, []);
 
   const handleCommand = (cmdStr: string) => {
     const cleanCmd = cmdStr.trim().toLowerCase();
@@ -34,29 +63,29 @@ export const InteractiveTerminal: React.FC<TerminalProps> = ({ data }) => {
         response = (
           <div className="text-xs font-mono space-y-1 text-[#E5E5E0]">
             <p className="text-[#C5A880] font-bold">Comandos disponibles:</p>
-            <p><span className="text-[#C5A880] font-bold">whoami</span>    - Biografía y rol de Cesar Morales</p>
-            <p><span className="text-[#C5A880] font-bold">projects</span>  - Ver los 6 repositorios de GitHub</p>
-            <p><span className="text-[#C5A880] font-bold">skills</span>    - Ver stack de tecnologías</p>
-            <p><span className="text-[#C5A880] font-bold">contact</span>   - Canales directos de contacto</p>
-            <p><span className="text-[#C5A880] font-bold">clear</span>     - Limpiar pantalla</p>
+            <p><span className="text-[#C5A880] font-bold">whoami</span>    - Biografía de Cesar Morales</p>
+            <p><span className="text-[#C5A880] font-bold">projects</span>  - Lista interactiva de repositorios</p>
+            <p><span className="text-[#C5A880] font-bold">skills</span>    - Stack de tecnologías Full-Stack</p>
+            <p><span className="text-[#C5A880] font-bold">contact</span>   - Enlaces a LinkedIn, GitHub y Email</p>
+            <p><span className="text-[#C5A880] font-bold">clear</span>     - Limpiar la pantalla</p>
           </div>
         );
         break;
       case 'whoami':
         response = (
           <div className="text-xs font-mono text-[#E5E5E0] space-y-1">
-            <p className="text-[#C5A880] font-bold">{data.fullName} (@{data.handle})</p>
-            <p>Role: {data.title}</p>
-            <p>Ubicación: {data.location}</p>
-            <p className="text-[#8A8E95] font-light mt-1">{data.bio}</p>
+            <p className="text-[#C5A880] font-bold">{data?.fullName} (@{data?.handle})</p>
+            <p>Role: {data?.title}</p>
+            <p>Ubicación: {data?.location}</p>
+            <p className="text-[#8A8E95] font-light mt-1">{data?.bio}</p>
           </div>
         );
         break;
       case 'projects':
         response = (
           <div className="text-xs font-mono text-[#E5E5E0] space-y-2">
-            <p className="text-[#C5A880] font-bold">📂 Repositorios en GitHub:</p>
-            {data.projects.map((p, i) => (
+            <p className="text-[#C5A880] font-bold">📂 Repositorios Públicos:</p>
+            {(data?.projects || []).map((p, i) => (
               <div key={i} className="pl-2 border-l border-[#C5A880]/50">
                 <span className="text-[#E5E5E0] font-bold">{p.title}</span> ({p.badge})
                 <br />
@@ -71,8 +100,8 @@ export const InteractiveTerminal: React.FC<TerminalProps> = ({ data }) => {
       case 'skills':
         response = (
           <div className="text-xs font-mono text-[#E5E5E0] space-y-1">
-            <p className="text-[#C5A880] font-bold">🛠️ Stack de Desarrollo:</p>
-            {data.skillGroups.map((g, i) => (
+            <p className="text-[#C5A880] font-bold">🛠️ Stack Tecnológico:</p>
+            {(data?.skillGroups || []).map((g, i) => (
               <p key={i}>
                 <span className="text-[#8A8E95] font-bold">[{g.category}]:</span> {g.skills.join(', ')}
               </p>
@@ -84,9 +113,9 @@ export const InteractiveTerminal: React.FC<TerminalProps> = ({ data }) => {
         response = (
           <div className="text-xs font-mono text-[#E5E5E0] space-y-1">
             <p className="text-[#C5A880] font-bold">📬 Contacto Directo:</p>
-            <p>Email: <a href={`mailto:${data.contact.email}`} className="text-[#C5A880] underline">{data.contact.email}</a></p>
-            <p>LinkedIn: <a href={data.contact.linkedin} target="_blank" rel="noreferrer" className="text-[#C5A880] underline">{data.contact.linkedin}</a></p>
-            <p>GitHub: <a href={data.contact.github} target="_blank" rel="noreferrer" className="text-[#C5A880] underline">{data.contact.github}</a></p>
+            <p>Email: <a href={`mailto:${data?.contact?.email}`} className="text-[#C5A880] underline">{data?.contact?.email}</a></p>
+            <p>LinkedIn: <a href={data?.contact?.linkedin} target="_blank" rel="noreferrer" className="text-[#C5A880] underline">{data?.contact?.linkedin}</a></p>
+            <p>GitHub: <a href={data?.contact?.github} target="_blank" rel="noreferrer" className="text-[#C5A880] underline">{data?.contact?.github}</a></p>
           </div>
         );
         break;
@@ -96,7 +125,7 @@ export const InteractiveTerminal: React.FC<TerminalProps> = ({ data }) => {
       default:
         response = (
           <span className="text-xs font-mono text-rose-400">
-            Comando no válido: '{cmdStr}'. Escribe 'help' para comandos disponibles.
+            Comando no reconocido: '{cmdStr}'. Escribe 'help' para ver la lista de comandos.
           </span>
         );
     }
@@ -112,41 +141,46 @@ export const InteractiveTerminal: React.FC<TerminalProps> = ({ data }) => {
   };
 
   return (
-    <div className="bg-[#1E2024] border border-[#2A2C31] rounded-2xl overflow-hidden shadow-none">
-      {/* Header */}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.2 }}
+      transition={{ duration: 0.5 }}
+      className="bg-[#1E2024] border border-[#2A2C31] rounded-2xl overflow-hidden shadow-none hover:border-[#C5A880]/40 transition-colors"
+    >
+      {/* Terminal Header */}
       <div className="bg-[#131416] px-4 py-3 border-b border-[#2A2C31] flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-2.5 h-2.5 rounded-full bg-[#2A2C31]"></div>
           <div className="w-2.5 h-2.5 rounded-full bg-[#2A2C31]"></div>
           <div className="w-2.5 h-2.5 rounded-full bg-[#2A2C31]"></div>
           <span className="ml-2 text-xs font-mono text-[#8A8E95] flex items-center gap-1.5">
-            <TerminalIcon size={13} className="text-[#C5A880]" /> cesar@soyriper-environment
+            <TerminalIcon size={13} className="text-[#C5A880]" /> cesar@soyriper-terminal
           </span>
         </div>
-        <span className="text-[10px] text-[#C5A880] font-mono border border-[#2A2C31] px-2 py-0.5 rounded">
-          SYSTEM ACTIVE
+        <span className="text-[10px] text-[#C5A880] font-mono border border-[#2A2C31] px-2 py-0.5 rounded flex items-center gap-1">
+          <Sparkles size={10} /> REPOSITORIO ACTIVO
         </span>
       </div>
 
       {/* Quick Action Buttons */}
       <div className="bg-[#181a1d] px-4 py-2 border-b border-[#2A2C31] flex flex-wrap gap-2 text-xs font-mono">
-        <span className="text-[#8A8E95] self-center text-[11px]">Acción:</span>
-        <button onClick={() => handleCommand('whoami')} className="px-2.5 py-1 bg-[#131416] border border-[#2A2C31] text-[#E5E5E0] hover:text-[#C5A880] rounded hover:border-[#C5A880]/50 transition-colors flex items-center gap-1">
-          <Play size={10} /> whoami
-        </button>
-        <button onClick={() => handleCommand('projects')} className="px-2.5 py-1 bg-[#131416] border border-[#2A2C31] text-[#E5E5E0] hover:text-[#C5A880] rounded hover:border-[#C5A880]/50 transition-colors flex items-center gap-1">
-          <Play size={10} /> projects
-        </button>
-        <button onClick={() => handleCommand('skills')} className="px-2.5 py-1 bg-[#131416] border border-[#2A2C31] text-[#E5E5E0] hover:text-[#C5A880] rounded hover:border-[#C5A880]/50 transition-colors flex items-center gap-1">
-          <Play size={10} /> skills
-        </button>
-        <button onClick={() => handleCommand('contact')} className="px-2.5 py-1 bg-[#131416] border border-[#2A2C31] text-[#E5E5E0] hover:text-[#C5A880] rounded hover:border-[#C5A880]/50 transition-colors flex items-center gap-1">
-          <Play size={10} /> contact
-        </button>
+        <span className="text-[#8A8E95] self-center text-[11px]">Acciones Rápidas:</span>
+        {['whoami', 'projects', 'skills', 'contact'].map((cmd) => (
+          <motion.button
+            key={cmd}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => handleCommand(cmd)}
+            className="px-2.5 py-1 bg-[#131416] border border-[#2A2C31] text-[#E5E5E0] hover:text-[#C5A880] rounded hover:border-[#C5A880]/50 transition-all flex items-center gap-1"
+          >
+            <Play size={10} /> {cmd}
+          </motion.button>
+        ))}
       </div>
 
-      {/* Terminal Output */}
-      <div className="p-4 h-60 overflow-y-auto font-mono text-xs space-y-3 bg-[#131416]">
+      {/* Terminal Output Stream */}
+      <div className="p-4 h-64 overflow-y-auto font-mono text-xs space-y-3 bg-[#131416]">
         {history.map((h, idx) => (
           <div key={idx} className="space-y-1">
             <div className="flex items-center gap-2 text-[#8A8E95]">
@@ -156,10 +190,16 @@ export const InteractiveTerminal: React.FC<TerminalProps> = ({ data }) => {
             <div className="pl-3">{h.output}</div>
           </div>
         ))}
+        {typingText && (
+          <div className="text-[#C5A880] flex items-center gap-1">
+            <span>{typingText}</span>
+            <span className="w-1.5 h-4 bg-[#C5A880] animate-pulse"></span>
+          </div>
+        )}
         <div ref={bottomRef} />
       </div>
 
-      {/* Form */}
+      {/* Input Form */}
       <form onSubmit={onSubmit} className="bg-[#181a1d] p-3 border-t border-[#2A2C31] flex items-center gap-2">
         <span className="text-[#C5A880] font-mono text-xs">cesar@soyriper:~$</span>
         <input
@@ -173,6 +213,6 @@ export const InteractiveTerminal: React.FC<TerminalProps> = ({ data }) => {
           <CornerDownLeft size={13} />
         </button>
       </form>
-    </div>
+    </motion.div>
   );
 };

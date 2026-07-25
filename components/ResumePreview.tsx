@@ -1,12 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ResumeData } from '../types';
-import { Mail, MapPin, Github, Linkedin, ExternalLink, Code2, Terminal as TerminalIcon, Cpu, ShieldCheck, FolderGit2, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Mail, Github, Linkedin, Code2, Terminal as TerminalIcon, Cpu, ShieldCheck, FolderGit2, ArrowUpRight, Sparkles } from 'lucide-react';
 import { BinaryCanvas } from './BinaryCanvas';
 import { TerminalIntro } from './TerminalIntro';
 import { InteractiveTerminal } from './InteractiveTerminal';
 import { CodeExplorer } from './CodeExplorer';
 import { AvatarToggle } from './AvatarToggle';
+import { ProjectCard } from './ProjectCard';
 
 interface ResumePreviewProps {
   data: ResumeData;
@@ -34,10 +35,10 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
   return (
     <div className="min-h-screen bg-[#131416] text-[#E5E5E0] font-sans flex flex-col items-center relative selection:bg-[#C5A880] selection:text-[#131416]">
       
-      {/* Background Animated Binary Stream */}
+      {/* Background Stream */}
       <BinaryCanvas />
 
-      {/* Editorial Header Navigation */}
+      {/* Header Navigation */}
       <header className="w-full max-w-6xl px-6 py-6 flex justify-between items-center border-b border-[#2A2C31] sticky top-0 bg-[#131416]/90 backdrop-blur-md z-50">
         <div className="flex items-center gap-3">
           <div>
@@ -53,6 +54,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
           <a href="#about" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Sobre mí</a>
           <a href="#projects" className="hover:text-[#E5E5E0] transition-colors">Proyectos</a>
           <a href="#code" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Código</a>
+          <a href="#cli" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Terminal CLI</a>
           <a href="#stack" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Stack</a>
           <a
             href={data?.contact?.linkedin}
@@ -70,14 +72,15 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
         {/* HERO SECTION */}
         <section id="about" className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
             className="lg:col-span-8 space-y-6"
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1E2024] border border-[#2A2C31] text-[#C5A880] text-xs font-mono">
               <Sparkles size={13} />
-              <span>SENIOR FULL-STACK & SYSTEMS ENGINEER</span>
+              <span>FULL-STACK & SYSTEMS ENGINEER</span>
             </div>
 
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight text-[#E5E5E0] font-display">
@@ -123,9 +126,10 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
 
           {/* DUAL AVATAR PROFILE TOGGLE */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
             className="lg:col-span-4 flex justify-center"
           >
             <AvatarToggle
@@ -137,7 +141,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
           </motion.div>
         </section>
 
-        {/* FEATURED PROJECTS SECTION WITH SCROLL ANIMATIONS */}
+        {/* FEATURED PROJECTS SECTION */}
         <section id="projects" className="space-y-8">
           <div className="flex items-center gap-4">
             <FolderGit2 className="text-[#C5A880]" size={24} />
@@ -147,66 +151,18 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {(data?.projects || []).map((proj, idx) => (
-              <motion.div
-                key={proj.id}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
-                whileHover={{ y: -5 }}
-                className="bg-[#1E2024] border border-[#2A2C31] p-6 rounded-2xl hover:border-[#C5A880]/60 transition-all flex flex-col justify-between group shadow-sm hover:shadow-xl hover:shadow-black/50"
-              >
-                <div>
-                  <div className="flex justify-between items-start mb-4">
-                    <span className="px-2.5 py-1 rounded-md bg-[#131416] border border-[#2A2C31] text-[11px] font-mono text-[#C5A880] font-medium">
-                      {proj.badge}
-                    </span>
-                    <a
-                      href={proj.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#8A8E95] hover:text-[#C5A880] transition-colors p-1"
-                    >
-                      <ExternalLink size={18} />
-                    </a>
-                  </div>
-                  <h3 className="text-lg font-bold text-[#E5E5E0] mb-2 font-display group-hover:text-[#C5A880] transition-colors">
-                    {proj.title}
-                  </h3>
-                  <p className="text-xs text-[#8A8E95] mb-6 leading-relaxed font-normal">
-                    {proj.description}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-[#2A2C31]">
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {(proj.tags || []).map((t, tIdx) => (
-                      <span key={tIdx} className="text-[10px] font-mono text-[#8A8E95] bg-[#131416] px-2 py-0.5 rounded border border-[#2A2C31]">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  <a
-                    href={proj.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2 bg-[#131416] hover:bg-[#2A2C31] border border-[#2A2C31] hover:border-[#C5A880]/50 text-[#E5E5E0] hover:text-[#C5A880] rounded-xl text-xs font-mono transition-all flex items-center justify-center gap-2"
-                  >
-                    <Github size={14} /> Ver Repositorio en GitHub
-                  </a>
-                </div>
-              </motion.div>
+              <ProjectCard key={proj.id} project={proj} index={idx} />
             ))}
           </div>
         </section>
 
-        {/* CODE EXPLORER SECTION WITH ANIMATIONS */}
+        {/* CODE EXPLORER SECTION */}
         <section id="code" className="space-y-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-4 mb-3">
               <Code2 className="text-[#C5A880]" size={24} />
@@ -214,7 +170,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
               <div className="h-px bg-[#2A2C31] flex-1"></div>
             </div>
             <p className="text-xs text-[#8A8E95] font-mono mb-4">
-              Selecciona un proyecto para examinar fragmentos de código real con efecto de tipeo en vivo:
+              Selecciona cualquier proyecto para examinar la sintaxis con el motor de tipeo dinámico en vivo:
             </p>
             <CodeExplorer projects={data?.projects || []} />
           </motion.div>
@@ -222,19 +178,12 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
 
         {/* INTERACTIVE TERMINAL CLI */}
         <section id="cli" className="space-y-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-          >
-            <div className="flex items-center gap-4 mb-3">
-              <TerminalIcon className="text-[#C5A880]" size={24} />
-              <h2 className="text-2xl font-bold tracking-tight text-[#E5E5E0] font-display">Consola CLI Interactiva</h2>
-              <div className="h-px bg-[#2A2C31] flex-1"></div>
-            </div>
-            <InteractiveTerminal data={data} />
-          </motion.div>
+          <div className="flex items-center gap-4 mb-3">
+            <TerminalIcon className="text-[#C5A880]" size={24} />
+            <h2 className="text-2xl font-bold tracking-tight text-[#E5E5E0] font-display">Consola CLI Interactiva</h2>
+            <div className="h-px bg-[#2A2C31] flex-1"></div>
+          </div>
+          <InteractiveTerminal data={data} />
         </section>
 
         {/* SKILLS / STACK SECTION */}
@@ -249,11 +198,11 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             {(data?.skillGroups || []).map((group, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                whileHover={{ y: -4 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                whileHover={{ y: -5 }}
                 className="bg-[#1E2024] border border-[#2A2C31] p-6 rounded-2xl hover:border-[#C5A880]/50 transition-all"
               >
                 <h3 className="text-xs font-bold text-[#C5A880] uppercase tracking-widest mb-5 border-b border-[#2A2C31] pb-2 font-mono">
@@ -284,9 +233,9 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             {(data?.experience || []).map((job) => (
               <motion.div
                 key={job.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 0.4 }}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8"
               >
@@ -301,7 +250,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
                 </div>
 
                 <div className="lg:col-span-9">
-                  <div className="bg-[#1E2024] border border-[#2A2C31] rounded-2xl p-6 hover:border-[#C5A880]/30 transition-colors">
+                  <div className="bg-[#1E2024] border border-[#2A2C31] rounded-2xl p-6 hover:border-[#C5A880]/40 transition-colors">
                      <ul className="space-y-3">
                       {(job.description || []).map((point, i) => (
                         <li key={i} className="flex gap-3 text-[#8A8E95] leading-relaxed text-xs md:text-sm font-normal">
