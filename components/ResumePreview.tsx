@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ResumeData } from '../types';
-import { Mail, Github, Linkedin, Terminal as TerminalIcon, Cpu, ShieldCheck, FolderGit2, ArrowUpRight, Sparkles, Layers, Phone, MessageSquare, Download, FileText, Award, CheckCircle } from 'lucide-react';
+import { Mail, Github, Linkedin, Terminal as TerminalIcon, Cpu, ShieldCheck, FolderGit2, ArrowUpRight, Sparkles, Layers, Phone, FileText, Award, Eye } from 'lucide-react';
 import { BinaryCanvas } from './BinaryCanvas';
 import { TerminalIntro } from './TerminalIntro';
 import { InteractiveTerminal } from './InteractiveTerminal';
 import { ArchitectureMetrics } from './ArchitectureMetrics';
 import { AvatarToggle } from './AvatarToggle';
 import { ProjectCard } from './ProjectCard';
+import { CVModal } from './CVModal';
 
 interface ResumePreviewProps {
   data: ResumeData;
 }
 
 export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
+  const [isCVModalOpen, setIsCVModalOpen] = useState(false);
+
   const getDeviconClass = (skill: string) => {
     const s = (skill || '').toLowerCase();
     if (s.includes('rust')) return 'devicon-rust-plain text-[#C5A880]';
@@ -32,13 +35,12 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
     return 'devicon-devicon-plain text-[#8A8E95]';
   };
 
-  const handlePrintCV = () => {
-    window.print();
-  };
-
   return (
     <div className="min-h-screen bg-[#131416] text-[#E5E5E0] font-sans flex flex-col items-center relative selection:bg-[#C5A880] selection:text-[#131416]">
       
+      {/* Interactive CV Modal Viewer */}
+      <CVModal isOpen={isCVModalOpen} onClose={() => setIsCVModalOpen(false)} data={data} />
+
       {/* Background Stream */}
       <div className="print:hidden w-full flex flex-col items-center">
         <BinaryCanvas />
@@ -62,10 +64,10 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
           <a href="#architecture" className="hover:text-[#E5E5E0] transition-colors hidden md:inline">Arquitectura</a>
           
           <button
-            onClick={handlePrintCV}
+            onClick={() => setIsCVModalOpen(true)}
             className="bg-[#C5A880] text-[#131416] font-bold px-4 py-2 rounded-xl hover:bg-[#D8BC95] transition-all font-mono text-xs flex items-center gap-1.5 shadow-md"
           >
-            <FileText size={14} /> Descargar CV (PDF)
+            <Eye size={14} /> Ver Curriculum Vitae
           </button>
         </nav>
       </header>
@@ -105,10 +107,10 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             {/* ACTION BUTTONS */}
             <div className="flex flex-wrap gap-3 text-xs font-mono pt-2">
               <button
-                onClick={handlePrintCV}
+                onClick={() => setIsCVModalOpen(true)}
                 className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#C5A880] text-[#131416] font-bold hover:bg-[#D8BC95] transition-all shadow-lg font-mono"
               >
-                <Download size={16} /> Descargar Curriculum Vitae (PDF)
+                <Eye size={16} /> Ver Curriculum Vitae en Pantalla
               </button>
               <a
                 href={data?.contact?.whatsappUrl}
@@ -356,8 +358,8 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             <span>{data?.fullName} (@{data?.handle}) © {new Date().getFullYear()}</span>
           </div>
           <div className="flex flex-wrap gap-6">
-             <button onClick={handlePrintCV} className="text-[#C5A880] hover:underline font-bold flex items-center gap-1">
-               <FileText size={12} /> Descargar CV PDF
+             <button onClick={() => setIsCVModalOpen(true)} className="text-[#C5A880] hover:underline font-bold flex items-center gap-1">
+               <FileText size={12} /> Ver Curriculum Vitae
              </button>
              <a href={data?.contact?.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">WhatsApp</a>
              <a href={data?.contact?.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">LinkedIn</a>
