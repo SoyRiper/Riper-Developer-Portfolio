@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ResumeData } from '../types';
-import { Mail, Github, Linkedin, Terminal as TerminalIcon, Cpu, ShieldCheck, FolderGit2, ArrowUpRight, Sparkles, Layers, Phone, FileText, Award, Eye } from 'lucide-react';
+import { Mail, Github, Linkedin, Terminal as TerminalIcon, Cpu, ShieldCheck, FolderGit2, ArrowUpRight, Sparkles, Layers, Phone, MessageSquare, Award, Eye } from 'lucide-react';
 import { BinaryCanvas } from './BinaryCanvas';
 import { TerminalIntro } from './TerminalIntro';
 import { InteractiveTerminal } from './InteractiveTerminal';
@@ -67,7 +67,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             onClick={() => setIsCVModalOpen(true)}
             className="bg-[#C5A880] text-[#131416] font-bold px-4 py-2 rounded-xl hover:bg-[#D8BC95] transition-all font-mono text-xs flex items-center gap-1.5 shadow-md"
           >
-            <Eye size={14} /> Ver Curriculum Vitae
+            <Eye size={14} /> Ver CV
           </button>
         </nav>
       </header>
@@ -104,13 +104,13 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
             {/* ANIMATED TERMINAL INTRO WIDGET */}
             <TerminalIntro />
 
-            {/* ACTION BUTTONS */}
+            {/* ACTION BUTTONS GRID WITH DISCORD, WHATSAPP, LINKEDIN & GITHUB */}
             <div className="flex flex-wrap gap-3 text-xs font-mono pt-2">
               <button
                 onClick={() => setIsCVModalOpen(true)}
                 className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#C5A880] text-[#131416] font-bold hover:bg-[#D8BC95] transition-all shadow-lg font-mono"
               >
-                <Eye size={16} /> Ver Curriculum Vitae en Pantalla
+                <Eye size={16} /> Ver CV Professional
               </button>
               <a
                 href={data?.contact?.whatsappUrl}
@@ -119,6 +119,14 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
                 className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
               >
                 <Phone size={15} className="text-[#C5A880]" /> WhatsApp: {data?.contact?.phone}
+              </a>
+              <a
+                href={data?.contact?.discord}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#1E2024] border border-[#2A2C31] text-[#E5E5E0] hover:border-[#C5A880]/60 hover:text-[#C5A880] transition-all"
+              >
+                <MessageSquare size={15} className="text-[#C5A880]" /> Discord: {data?.discordTag}
               </a>
               <a
                 href={data?.contact?.linkedin}
@@ -359,9 +367,10 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data }) => {
           </div>
           <div className="flex flex-wrap gap-6">
              <button onClick={() => setIsCVModalOpen(true)} className="text-[#C5A880] hover:underline font-bold flex items-center gap-1">
-               <FileText size={12} /> Ver Curriculum Vitae
+               <Eye size={12} /> Ver CV
              </button>
              <a href={data?.contact?.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">WhatsApp</a>
+             <a href={data?.contact?.discord} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">Discord ({data?.discordTag})</a>
              <a href={data?.contact?.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">LinkedIn</a>
              <a href={data?.contact?.github} target="_blank" rel="noopener noreferrer" className="hover:text-[#C5A880] transition-colors">GitHub</a>
           </div>
