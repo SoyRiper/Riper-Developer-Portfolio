@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Copy, Check, FileCode, Sparkles } from 'lucide-react';
+import { Code2, Copy, Check, FileCode, Play, RefreshCw } from 'lucide-react';
 import { Project } from '../types';
 
 interface CodeExplorerProps {
@@ -16,15 +15,22 @@ export const CodeExplorer: React.FC<CodeExplorerProps> = ({ projects = [] }) => 
 
   const selectedProject = projectsWithCode.find((p) => p?.id === selectedId) || projectsWithCode[0];
 
-  useEffect(() => {
+  const triggerTypewriter = () => {
     if (!selectedProject?.codeSnippet) return;
-    
     setIsTyping(true);
     setTypedCode('');
-    
+  };
+
+  useEffect(() => {
+    triggerTypewriter();
+  }, [selectedId]);
+
+  useEffect(() => {
+    if (!isTyping || !selectedProject?.codeSnippet) return;
+
     const fullSnippet = selectedProject.codeSnippet;
     let index = 0;
-    const chunkSize = 4; // Fast typewriter speed for coding effect
+    const chunkSize = 3; // Precise typing effect
 
     const interval = setInterval(() => {
       index += chunkSize;
@@ -38,7 +44,7 @@ export const CodeExplorer: React.FC<CodeExplorerProps> = ({ projects = [] }) => 
     }, 15);
 
     return () => clearInterval(interval);
-  }, [selectedId, selectedProject?.codeSnippet]);
+  }, [isTyping, selectedProject?.codeSnippet]);
 
   const handleCopy = () => {
     if (!selectedProject?.codeSnippet) return;
@@ -58,7 +64,12 @@ export const CodeExplorer: React.FC<CodeExplorerProps> = ({ projects = [] }) => 
             <button
               key={p.id}
               onClick={() => setSelectedId(p.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 relative ${
+              onMouseEnter={() => {
+                if (selectedId !== p.id) {
+                  setSelectedId(p.id);
+                }
+              }}
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${
                 selectedId === p.id
                   ? 'bg-[#C5A880] text-[#131416] font-bold shadow-md'
                   : 'bg-[#1E2024] text-[#8A8E95] border border-[#2A2C31] hover:text-[#E5E5E0] hover:border-[#C5A880]/40'
@@ -66,20 +77,27 @@ export const CodeExplorer: React.FC<CodeExplorerProps> = ({ projects = [] }) => 
             >
               <FileCode size={13} />
               <span>{p.title.split('—')[0].trim()}</span>
-              {selectedId === p.id && isTyping && (
-                <span className="w-1.5 h-1.5 rounded-full bg-[#131416] animate-ping ml-1"></span>
-              )}
             </button>
           ))}
         </div>
 
-        <button
-          onClick={handleCopy}
-          className="px-3.5 py-1.5 bg-[#131416] hover:bg-[#2A2C31] border border-[#2A2C31] text-[#E5E5E0] text-xs font-mono rounded-lg transition-colors flex items-center gap-1.5"
-        >
-          {copied ? <Check size={14} className="text-[#C5A880]" /> : <Copy size={14} />}
-          <span>{copied ? '¡Copiado!' : 'Copiar Código'}</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={triggerTypewriter}
+            className="px-3 py-1.5 bg-[#131416] hover:bg-[#2A2C31] border border-[#2A2C31] text-[#C5A880] text-xs font-mono rounded-lg transition-colors flex items-center gap-1.5"
+          >
+            <RefreshCw size={13} className={isTyping ? 'animate-spin' : ''} />
+            <span>{isTyping ? 'Escribiendo...' : '▶ Re-tipear'}</span>
+          </button>
+
+          <button
+            onClick={handleCopy}
+            className="px-3.5 py-1.5 bg-[#131416] hover:bg-[#2A2C31] border border-[#2A2C31] text-[#E5E5E0] text-xs font-mono rounded-lg transition-colors flex items-center gap-1.5"
+          >
+            {copied ? <Check size={14} className="text-[#C5A880]" /> : <Copy size={14} />}
+            <span>{copied ? '¡Copiado!' : 'Copiar Código'}</span>
+          </button>
+        </div>
       </div>
 
       {/* Animated Code Display */}

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Terminal, Play, CheckCircle2 } from 'lucide-react';
+import { ExternalLink, Github, Terminal, Play, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { Project } from '../types';
 
 interface ProjectCardProps {
@@ -9,73 +9,117 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
+  const [logIndex, setLogIndex] = useState(0);
+  const [activeLogs, setActiveLogs] = useState<string[]>([]);
+  const [currentText, setCurrentText] = useState('');
 
-  // Dynamic simulated logs per project type
   const getSimulatedLogs = (id: string) => {
     switch (id) {
       case 'p1':
         return [
-          "> Connecting to MetaTrader 5 API...",
-          "> Stream ticks: EURUSD 1.0842 / BTCUSD $94,200",
-          "> Risk Strategy: 0.05 lot | SL: 15pts TP: 45pts",
-          "✔ Order Executed: BUY 0.05 BTCUSD"
+          "> Initializing MetaTrader 5 API Connector...",
+          "> Connecting to OANDA v20 REST Endpoint...",
+          "> Subscribing WebSocket Ticks: EUR/USD & BTC/USD...",
+          "> Quantitative Risk Calculation: Lot 0.05 | SL: 15pts",
+          "✔ Order Executed: BUY 0.05 BTC/USD @ $94,200 [SUCCESS]"
         ];
       case 'p2':
         return [
-          "> Initializing NestJS App Module...",
-          "> Mounting Supabase Auth Guards...",
-          "> POST /api/insights/coffee-analytics 200 OK",
-          "✔ Enterprise API Online & Scalable"
+          "> Starting NestJS Microservice Kernel...",
+          "> Registering Supabase Auth Guards & JWT Module...",
+          "> Compiling Coffee Analytics & Insights Routes...",
+          "> POST /api/v1/insights/productivity 200 OK (24ms)",
+          "✔ Enterprise NestJS API Ready for High Latency Traffic"
         ];
       case 'p3':
         return [
-          "> Loading MIDI Synthesis Engine...",
-          "> Synthesizing Lofi chord progression...",
-          "> Generating MIDI file: lofi_track_80bpm.mid",
-          "✔ Web Audio API Output Ready"
+          "> Loading Web Audio & Python Flask Engine...",
+          "> Generating Lofi Chord Sequence: Cmaj7 -> Am7 -> Dm7 -> G7...",
+          "> Synthesizing MIDI stream file: lofi_beat_80bpm.mid...",
+          "> Exporting Web Audio Stream & Buffer...",
+          "✔ AI MIDI Track Rendered & Ready for Playback"
         ];
       case 'p4':
         return [
-          "> Initializing Google Gemini AI Model...",
-          "> Prompt: 'Optimize caffeine intake for 8-hour dev sprint'",
-          "> AI Output generated in 140ms",
-          "✔ Supabase Realtime State Synced"
+          "> Connecting to Google Gemini 2.5 Flash API...",
+          "> Prompt Payload: 'Analyze caffeine degradation curve'...",
+          "> Fetching Supabase User Profile & Coffee Logs...",
+          "> AI Response received in 110ms",
+          "✔ Smart Recommendation Rendered on React 19 Frontend"
         ];
       case 'p5':
         return [
-          "> Running SQL Migration: create_clans_table.sql",
-          "> Indexing user permissions & clan badges...",
-          "> Query: SELECT * FROM clans WHERE active = true",
-          "✔ PostgreSQL DB Migrated Successfully"
+          "> Executing PostgreSQL Migration: create_clans_table.sql...",
+          "> Creating Indexes on User IDs, Clan Badges & Ranks...",
+          "> SELECT * FROM clans WHERE active = true;",
+          "> 24 Clans Loaded | 120 Members Active",
+          "✔ SQL Relational Database Migrated & Fully Synced"
         ];
       case 'p6':
         return [
-          "> Compiling C++17 Geode Mod Layer...",
-          "> Linking CMake dependencies with Geode SDK...",
-          "> Injecting MenuLayer hook into Geometry Dash",
-          "✔ Native C++ Mod Loaded into Game Engine"
+          "> Invoking C++17 Compiler via CMake Build System...",
+          "> Linking Geode SDK Header Definitions & Hooks...",
+          "> Detouring MenuLayer::init() in Geometry Dash Binary...",
+          "> Injecting Custom Level Recommender UI Layer...",
+          "✔ Native C++ Mod Injected into Game Engine Successfully"
         ];
       default:
         return [
-          "> Starting application service...",
-          "> Compiling assets & dependencies...",
-          "> Ready for production deployment."
+          "> Starting project compilation...",
+          "> Validating dependencies & build target...",
+          "> Launching production service...",
+          "✔ Application Status: ONLINE & READY"
         ];
     }
   };
 
-  const logs = getSimulatedLogs(project.id);
+  const fullLogs = getSimulatedLogs(project.id);
+
+  const startSimulation = () => {
+    setActiveLogs([]);
+    setLogIndex(0);
+    setCurrentText('');
+    setIsRunning(true);
+  };
+
+  useEffect(() => {
+    if (!isRunning) return;
+
+    if (logIndex < fullLogs.length) {
+      const line = fullLogs[logIndex];
+      let charIdx = 0;
+
+      const charTimer = setInterval(() => {
+        setCurrentText(line.slice(0, charIdx + 1));
+        charIdx++;
+
+        if (charIdx >= line.length) {
+          clearInterval(charTimer);
+          setActiveLogs((prev) => [...prev, line]);
+          setCurrentText('');
+          setLogIndex((prev) => prev + 1);
+        }
+      }, 15);
+
+      return () => clearInterval(charTimer);
+    } else {
+      setIsRunning(false);
+    }
+  }, [isRunning, logIndex, fullLogs]);
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, amount: 0.2 }}
-      transition={{ duration: 0.45, delay: (index % 3) * 0.1 }}
-      whileHover={{ y: -6 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      viewport={{ once: false, amount: 0.15 }}
+      transition={{ duration: 0.4, delay: (index % 3) * 0.08 }}
+      whileHover={{ y: -5 }}
+      onMouseEnter={() => {
+        if (!isRunning && activeLogs.length === 0) {
+          startSimulation();
+        }
+      }}
       className="bg-[#1E2024] border border-[#2A2C31] p-6 rounded-2xl hover:border-[#C5A880]/60 transition-all flex flex-col justify-between group shadow-sm hover:shadow-2xl hover:shadow-black/60 relative overflow-hidden"
     >
       <div>
@@ -103,27 +147,49 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           {project.description}
         </p>
 
-        {/* Live Mini Terminal simulation on hover/scroll */}
-        <div className="bg-[#131416] border border-[#2A2C31] rounded-xl p-3 mb-5 font-mono text-[11px] space-y-1.5 transition-all">
-          <div className="flex items-center justify-between text-[#8A8E95] text-[10px] pb-1 border-b border-[#2A2C31]">
-            <span className="flex items-center gap-1 text-[#C5A880]">
-              <Terminal size={11} /> Terminal Simulación
+        {/* LIVE ANIMATED MINI TERMINAL */}
+        <div className="bg-[#131416] border border-[#2A2C31] rounded-xl p-3.5 mb-5 font-mono text-[11px] space-y-1.5 transition-all">
+          <div className="flex items-center justify-between text-[#8A8E95] text-[10px] pb-1.5 border-b border-[#2A2C31]">
+            <span className="flex items-center gap-1 text-[#C5A880] font-bold">
+              <Terminal size={12} /> Consola en Vivo
             </span>
-            <span>{isHovered ? 'EJECUTANDO EN VIVO' : 'PAUSADO'}</span>
+            <button
+              onClick={startSimulation}
+              className="text-[#C5A880] hover:text-[#E5E5E0] bg-[#1E2024] border border-[#2A2C31] px-2 py-0.5 rounded flex items-center gap-1 transition-colors"
+            >
+              {isRunning ? <RefreshCw size={10} className="animate-spin" /> : <Play size={10} />}
+              <span>{isRunning ? 'Ejecutando...' : '▶ Simular'}</span>
+            </button>
           </div>
 
-          <div className="space-y-1 pt-1">
-            {logs.slice(0, isHovered ? 4 : 2).map((log, lIdx) => (
-              <motion.div
+          <div className="space-y-1 pt-1 min-h-[90px] max-h-[110px] overflow-y-auto">
+            {activeLogs.map((log, lIdx) => (
+              <div
                 key={lIdx}
-                initial={{ opacity: 0, x: -5 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.2, delay: lIdx * 0.05 }}
-                className={`truncate ${log.startsWith('✔') ? 'text-[#C5A880] font-bold' : 'text-[#8A8E95]'}`}
+                className={`truncate ${
+                  log.startsWith('✔')
+                    ? 'text-[#C5A880] font-bold'
+                    : log.startsWith('>')
+                    ? 'text-[#E5E5E0]'
+                    : 'text-[#8A8E95]'
+                }`}
               >
                 {log}
-              </motion.div>
+              </div>
             ))}
+
+            {isRunning && currentText && (
+              <div className="text-[#C5A880] font-semibold flex items-center gap-1">
+                <span>{currentText}</span>
+                <span className="w-1.5 h-3.5 bg-[#C5A880] animate-pulse"></span>
+              </div>
+            )}
+
+            {!isRunning && activeLogs.length === 0 && (
+              <div className="text-[#8A8E95] italic py-2 text-[10px]">
+                Pasa el mouse o presiona '▶ Simular' para ejecutar comandos en vivo...
+              </div>
+            )}
           </div>
         </div>
       </div>
