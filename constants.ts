@@ -6,7 +6,7 @@ export const INITIAL_RESUME: ResumeData = {
   discordTag: "@soyriper",
   robloxHandle: "@Riperdeveloper",
   title: "Ingeniero en Informática y Software | Senior Full-Stack & Systems Engineer (4+ Años Exp.)",
-  bio: "Ingeniero en Informática y Software con más de 4 años de experiencia diseñando y construyendo arquitecturas backend escalables (FastAPI, NestJS, Python 3, PostgreSQL), aplicaciones web reactivas (React 19, Vite, TailwindCSS), bots de automatización multi-dispositivo (Python, Selenium, Android ADB Tools), soluciones móviles y desktop (Flutter, Android Studio, Electron.js) y desarrollo de videojuegos en Roblox Studio (Luau, Rojo SDK).",
+  bio: "Ingeniero en Informática y Software con más de 4 años de experiencia diseñando y construyendo arquitecturas backend escalables (FastAPI, NestJS, Python 3, PostgreSQL), aplicaciones web reactivas (React 19, Vite, TailwindCSS), bots de automatización multi-dispositivo (Python, Selenium, Android ADB Tools), plataformas comunitarias (RCorps), soluciones móviles y desktop (Flutter, Android Studio, Electron.js) y desarrollo de videojuegos en Roblox Studio (Luau, Rojo SDK).",
   location: "Los Teques, Estado Miranda | Remote Global",
   contact: {
     email: "andradescesar2024@gmail.com",
@@ -48,6 +48,14 @@ export const INITIAL_RESUME: ResumeData = {
       tags: ["FastAPI", "Python 3.10+", "React 18", "PostgreSQL", "Nginx VPS", "Systemd"],
       githubUrl: "https://github.com/SoyRiper/REEBCA-Management-Platform",
       badge: "Enterprise Platform"
+    },
+    {
+      id: "p_rcorps",
+      title: "RCorps — Community & Clan Management Platform",
+      description: "Plataforma web interactiva para gestión de comunidades, clanes, perfiles de usuario y catálogo de medallas con estructura de base de datos relacional SQL.",
+      tags: ["HTML5", "JavaScript ES6+", "SQL Migration", "Responsive UI"],
+      githubUrl: "https://github.com/SoyRiper/RCorps",
+      badge: "Web Community Platform"
     },
     {
       id: "p1_denail",
@@ -107,7 +115,7 @@ export const INITIAL_RESUME: ResumeData = {
       description: [
         "Lideré el desarrollo e ingeniería de software de múltiples soluciones empresariales, desde APIs en FastAPI/NestJS hasta aplicaciones web en React 19.",
         "Desarrollé bots avanzados de automatización en Python integrando Selenium y Android ADB Platform Tools para control multi-dispositivo.",
-        "Construí motores de trading algorítmico y sistemas cuantitativos de alta frecuencia conectados a MetaTrader 5 y OANDA."
+        "Construí motores de trading algorítmico, plataformas comunitarias SQL (RCorps) y sistemas cuantitativos conectados a MetaTrader 5 y OANDA."
       ]
     },
     {
